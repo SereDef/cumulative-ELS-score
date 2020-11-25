@@ -1,7 +1,7 @@
 # Point to the necessary libraries
 library(foreign)
 
-pathtodata <- readline(prompt="Enter path: ")
+pathtodata <- readline(prompt="Enter path to data: ")
 
 # The code assumes that all raw data is stored in ONE folder:
 #dir = "/Users/Serena/Desktop/Data/" # -> CUSTOMIZE TO APPROPRIATE PATH

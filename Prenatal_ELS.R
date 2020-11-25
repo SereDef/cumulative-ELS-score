@@ -1,4 +1,3 @@
-
 ################################################################################
 ############################  PRENATAL ELS SCORE  ##############################
 ################################################################################
@@ -7,61 +6,21 @@
 # the prenatal cumulative risk score used in Rijlaarsdam et al. (2016) and 
 # Schuumans (in preparation), here: Jolie and Isabel.
 
+# First, let's point to the necessary libraries and define all the functions that 
+# are going to be used: replacenas, readquick, domainscore (also repmeas, bsi_scores, 
+# fad_scores that are used in addition in the postnatal stress script)
+source("Setup_and_functions.R")
+
+# ATTENTION!!! You will be prompted with an "Enter path:" -> CUSTOMIZE TO APPROPRIATE PATH
+# Enter the location of your datafiles. The code assumes that all (raw) data is 
+# stored in ONE folder. Do not forget the final slash, and, speaking of slashes, 
+# beware of OS sensitive changes when you want to modify the structure of your dirs!
+
+#-------------------------------------------------------------------------------
 # I first read in the data and select the necessary columns (i.e. indicators), 
-# merge them, calculate the four domain scores and save two files: (1) the full 
-# dataset and (2) a summary overview of how many risk, no-risk and missing values 
-# are present for each indicator. 
-
-# Point to the necessary libraries
-library(foreign)
-
-# The code assumes that all raw data is stored in ONE folder:
-dir = "/Users/Serena/Desktop/Data/" # -> CUSTOMIZE TO APPROPRIATE PATH
-
-#### ----------------------------- FUNCTIONS ----------------------------- ####
-
-## replace NAs
-replacenas <- function(dat, miss_spec = c(777,888,999), col = c(2:length(dat))){
-  for (j in 1:length(miss_spec)){
-    for (i in 1:length(col)){
-      dat[,col[i]] <- ifelse(dat[,col[i]] == miss_spec[j], NA, dat[,col[i]])
-    }
-  }
-  return (dat)
-}
-
-## read in data quickly
-readquick <- function(filename, rootdir=dir){ # only works for SPSS files
-  dataframe <- read.spss(paste(rootdir, filename, sep=""), 
-                         use.value.labels = F, to.data.frame = T)
-  names(dataframe) <- tolower(names(dataframe))
-  dataframe <- replacenas(dataframe)
-  return(dataframe)
-}
-
-# Domain scores measure how many adversities are reported. Together with mean nr 
-# of adversities (ranging from 0 to 1) the function can also provide a cumulative 
-# number of adversities (just uncomment it).
-# If a domain is not complete, the domain score is NA. This missing value needs to 
-# be accounted for by multiple imputation.
-
-# calculate the domain scores
-domainscore <- function(df){
-  # dataframe with all the included items
-  df <- data.frame(df)
-  # check if all variables in df are dichotomized 
-  for (i in 1:ncol(df)){
-    if (range(df[,i], na.rm = T)[1] == 1 & range(df[,i], na.rm = T)[2] == 2){ df[,i] <- df[,i] - 1}
-    else {
-      if (range(df[,i], na.rm = T)[1] != 0 | range(df[,i], na.rm = T)[2] != 1 ){
-        stop('Items are not dichotomized')} 
-    }
-  }
-  # calculate the mean number of events (weighted)
-  temp_mean <- rowMeans(df, na.rm = F) #temp_sum <- rowSums(df, na.rm = F)
-  return(temp_mean)
-}
-# ------------------------------------------------------------------------------
+# and dichotomize when necessary. Then I merge them, calculate the five domain 
+# scores and save two files: (1) the full dataset and (2) a summary overview of 
+# how many risk, no-risk and missing values are present for each indicator. 
 
 ################################################################################
 #### ------------------------ reading and merging ------------------------- ####
@@ -70,7 +29,6 @@ domainscore <- function(df){
 # ATTENTION! The code assumes you have run the SPSS Syntax on the original datasets
 # (20141124_Cumulative environmental risk scorewithNamechanges_Acortes.sps) MODIFIED
 
-# I read in the raw data and select the necessary columns.
 # LE = Life Events, CR = Contextual Risk, PS = Personal risk, IR = Interpers. risk
 
 #-------------------------------------------------------------------------------
