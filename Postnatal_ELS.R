@@ -6,19 +6,28 @@
 # The following script builds a dataset with all indicators and domain scores in
 # the postnatal cumulative risk score used in Schuumans (in preparation). 
 
-# ATTENTION !! Before you run this, you need to run the one SPSS Syntax. 
-# (V:\Promovendi\Datasets\Gedragsgroep\Questionnaire data\After birth\0-3 years\Harsh parenting_Parent Child Conflict Tactics Scale\Syntax harsh parenting 3jr_PJ10012011)
-# or most recent version.
-
 # First, let's point to the necessary libraries and define all the functions that 
-# are going to be used: replacenas, readquick, domainscore (also repmeas, bsi_scores, 
-# fad_scores that are used in addition in the postnatal stress script)
-source("Setup_and_functions.R")
+# are going to be used: replacenas, readquick, domainscore, repmeas, bsi_scores & fad_scores.
+source("Setup_and_functions.R") 
 
-# ATTENTION!!! You will be prompted with an "Enter path:" -> CUSTOMIZE TO APPROPRIATE PATH
-# Enter the location of your datafiles. The code assumes that all (raw) data is 
-# stored in ONE folder. Do not forget the final slash, and, speaking of slashes, 
-# beware of OS sensitive changes when you want to modify the structure of your dirs.
+# ATTENTION!!! You will be prompted with an "Enter path to data:" message 
+# -> Enter the location of your datafiles. The code assumes that all (raw) data is 
+# stored in ONE folder. Do not forget the final slash in your path, and, speaking of slashes, 
+# beware of OS sensitive changes when you want to modify the structure of your dirs!
+
+# For this version of the score
+# You will need the following files (or updated versions from datamanagemet)
+# Parenting 3 years of age_GR1065 F1F6 -GR1066 B1-B5_22112016.sav
+###### !!! ATTENTION !!! Before you run this, you need to run the one SPSS Syntax. 
+# (V:\Promovendi\Datasets\Gedragsgroep\Questionnaire data\After birth\0-3 years\Harsh parenting_Parent Child Conflict Tactics Scale\Syntax harsh parenting 3jr_PJ10012011)
+# or most recent version, on this file. 
+# BSI 3 years of age_GR1065 G1-GR1066 C1_22112016.sav; 
+# GR1065-G2_01072012.sav; GR1065-G3-6_01072012.sav; GR1065-X_01072012.sav; 
+# SESFOLLOWUP_03022020.sav;  PARENTEMPLOYMENT5_13082012.sav; GR1075-B3_17072015.sav; GR1075-B4_17072015.sav;
+# 20141027_TRFteacherCleaned.sav; GR1080-C10-11_04042017.sav; GR1080-E_Bullying_17072015.sav;
+# GR1081_E1-3_5-6_08082016.sav; GR1081_E4_30082016.sav; GR1081_I1-9_08082016.sav;
+# GR1081-GR1083_D1_BSI_19042017.sav; GR1082_C1-5_22092016.sav; MOTHERTRAUMAINTERVIEW9_24112016.sav
+# GR1083_E7_19102016.sav and FETALPERIOD-ALLGENERALDATA_29012018.sav
 
 #-------------------------------------------------------------------------------
 # I first read in the data and select the necessary columns (i.e. indicators), 
@@ -173,15 +182,18 @@ GR1079v1 <- readquick("20141027_TRFteacherCleaned.sav") # 7580 obs. of  336
 
 # Construct GR1079 # used in DV score 
 GR1079 <- data.frame(GR1079v1$idc, 
-                     ifelse(GR1079v1$d0100179 >= 4, yes = 1, no = 0), # physical bulying (hit,kick,pinch,bite) according to the teacher
-                     ifelse(GR1079v1$d0100279 >= 4, yes = 1, no = 0), # verbal bullying (laugh at, insult, tease) according to the teacher
-                     ifelse(GR1079v1$d0100379 >= 4, yes = 1, no = 0)) # excluded, according to the teacher
+                     ifelse(GR1079v1$d0100179 >= 3, yes = 1, no = 0), # physical bulying (hit,kick,pinch,bite) according to the teacher
+                     ifelse(GR1079v1$d0100279 >= 3, yes = 1, no = 0), # verbal bullying (laugh at, insult, tease) according to the teacher
+                     ifelse(GR1079v1$d0100379 >= 3, yes = 1, no = 0)) # excluded, according to the teacher
                             # DICH: based on previous work on bullying in Gen R (Muetzel et al., 2019).
                             # If child was verbally/physically/relationally bullied once a week or more = risk. 
 colnames(GR1079) <- c("IDC", "bully_physical_t", "bully_verbal_t", "bully_excluded_t")
 #-------------------------------------------------------------------------------
 ## GR1080E (8 yrs) - bullying assessed by main caregiver
 GR1080v1E <- readquick("GR1080-E_Bullying_17072015.sav") # 9901 obs. of  11 
+
+# First I need to recode some weird SPSS missing codes into NAs
+GR1080v1E$e0100280[GR1080v1E$e0100280 == 88] <- NA; GR1080v1E$e0100380[GR1080v1E$e0100380 == 88] <- NA; GR1080v1E$e0100480[GR1080v1E$e0100480 == 88] <- NA;
 
 # Construct GR1080 # used in DV score      # CHECK THE DATA, MAX IS 88, WHA?
 GR1080E <- data.frame(GR1080v1E$idc, 
@@ -217,14 +229,14 @@ GR1081v1 <- readquick("GR1081_E1-3_5-6_08082016.sav") # 9901 obs. of  35
 GR1081 <- data.frame(GR1081v1$idc, 
                      ifelse(GR1081v1$e0600181_v2 > 1, yes = 1, no = 0), # trouble paying for food, rent, electricity
                             # DICH: ‘no problems at all’ = no risk, ‘few problems’ to ‘a lot problems’ = risk.
-                     GR1081v1$e0100281_v2, # sufficient heating in house during cold weather # INVERSE
-                     GR1081v1$e0100381_v2, # pay rent of mortgage without problems # INVERSE
-                     GR1081v1$e0100481_v2, # on average one hot meal per day # INVERSE
-                     GR1081v1$e0100581_v2, # own or lease a car # INVERSE
-                     GR1081v1$e0100681_v2, # own a washing machine # INVERSE
-                     GR1081v1$e0100781_v2, # own a refrigerator # INVERSE
-                     GR1081v1$e0100881_v2, # own a telephone # INVERSE
-                     GR1081v1$e0101181_v2, # holidays away from home 1 or more weeks per year # INVERSE
+                     recode(GR1081v1$e0100281_v2,'0=1; 1=0'), # Sufficient heating in house during cold weather # INVERSE
+                     recode(GR1081v1$e0100381_v2,'0=1; 1=0'), # pay rent of mortgage without problems # INVERSE
+                     recode(GR1081v1$e0100481_v2,'0=1; 1=0'), # on average one hot meal per day # INVERSE
+                     recode(GR1081v1$e0100581_v2,'0=1; 1=0'), # own or lease a car # INVERSE
+                     recode(GR1081v1$e0100681_v2,'0=1; 1=0'), # own a washing machine # INVERSE
+                     recode(GR1081v1$e0100781_v2,'0=1; 1=0'), # own a refrigerator # INVERSE
+                     recode(GR1081v1$e0100881_v2,'0=1; 1=0'), # own a telephone # INVERSE
+                     recode(GR1081v1$e0101181_v2,'0=1; 1=0'), # holidays away from home 1 or more weeks per year # INVERSE
                           # the above items are taken from the Material deprivation questionnaire.
                      ifelse(GR1081v1$e0200181_v2 < 4, yes = 1, no = 0), # household income per month
                             # DICH: according to the Central Statistic Netherlands (2013). 
@@ -251,8 +263,8 @@ GR1081v1I <- readquick("GR1081_I1-9_08082016.sav") # 9901 obs. of  29
 
 # Construct GR1081 I # used in CR
 GR1081I <- data.frame(GR1081v1I$idc, 
-                      ifelse(GR1081v1I$i0100181_cleaned > 1, yes = 1, no = 0)) # how many televisions in the house?
-                      # DICH: 0 = no television, 1 = at least one television.
+                      ifelse(GR1081v1I$i0100181_cleaned < 2, yes = 1, no = 0)) # how many televisions in the house?
+                      # DICH: 1 = no television, 0 = at least one television.
                       # This item used in the material deprivation index, together with variables from the 
                       # Material deprivation questionnaire, to increase resemblance with EU-SILC guidelines.
 colnames(GR1081I) <- c("IDC", "mat_depr_tv")
@@ -327,7 +339,7 @@ colnames(BSI_dich) <- c("IDC", "IDM", "BSI_age", "m_is_3yrs", "m_is_9yrs", "f_is
 #-------------------------------------------------------------------------------
 # Family Assessment Device 
 FAD5 <- readquick("GR1075-B4_17072015.sav")
-FAD9m <- readquick("GR1081_E1-3_5-6_08082016.sav")
+FAD9m <- readquick("GR1081_E1-3_5-6_08082016.sav") # We used this file already but let's give it a nicer name
 FAD9f <- readquick("GR1083_E7_19102016.sav")
 
 m_fad_9yrs <- data.frame(5 - FAD9m$e0500181_v2, # Recode inverse item
@@ -374,7 +386,7 @@ postnatal_stress <- Reduce(function(x,y) merge(x = x, y = y, by = 'IDC',  all = 
 fetal_general <- readquick("FETALPERIOD-ALLGENERALDATA_29012018.sav") # 9778 obs of 95 var
 
 early_parent <- data.frame(fetal_general$idm, 
-                           ifelse(fetal_general$age_m_v2 < 19, yes = 1, no = 0), # mother younger than 19 years (for PR)
+                           ifelse(fetal_general$age_m_v2 < 19, yes = 1, no = 0), # mother younger than 19 years at intake (for PR)
                            # DICH: based on Cecil et al. (2014); Rijlaarsdam et al. (2016).
                            ifelse(fetal_general$age_p_v2 < 19, yes = 1, no = 0), # partner younger than 19 years (for PR)
                            ifelse(fetal_general$age_bf_v2 < 19, yes = 1, no = 0)) # biological father younger than 19 years (for PR). 
@@ -422,7 +434,7 @@ made <- postnatal_stress[, c("mat_depr_heating", "mat_depr_rent", "mat_depr_meal
 # material_deprivation reflects the family’s ability to afford basic needs and services.
 # If ‘possession rate’ is lower than 75%, risk is present. Rate is based on EU-SILC (2009).
 postnatal_stress$material_deprivation <- ifelse((rowMeans(is.na(made)) < .25),
-                                                yes = ifelse(rowMeans(made, na.rm = T) <= .75, yes = 1, no = 0), no = NA) 
+                                                yes = ifelse(rowMeans(made, na.rm = T) >= .25, yes = 1, no = 0), no = NA) 
 # NOTE: we set material deprivation values to NA if the missing frequency within the questionnaire is >25%
 
 # Education level of main caregiver and partner was assessed at age 3 and 5 (GR1075).
@@ -466,6 +478,10 @@ postnatal_stress$bullying <- repmeas(postnatal_stress[,c('bully_physical_m','bul
 postnatal_summary = data.frame(row.names=c("no risk","risk","NA"))
 for (i in 4:ncol(postnatal_stress)) { # because the third column is not dichotomous (BSI_age)
   s = summary(as.factor(postnatal_stress[,i]))
+  if (length(s) < 3) { # I am doing this ugly thing as a quick&dirty fix for lack of risk in fam_size_9yrs
+    s = c(s[1], 0, s[2])
+    names(s)[2] = "1"
+  }
   c = colnames(postnatal_stress)[i]
   postnatal_summary[,c] <- s }
 
@@ -555,6 +571,6 @@ postnatal_stress[,c('post_direct_victimization')] <- domainscore(postnatal_stres
 ################################################################################
 
 # Save the dataset in an .rds file, in the directory where the raw data are stored
-saveRDS(postnatal_stress, paste(dir,'postnatal_stress.rds'))
-#saveRDS(postnatal_summary, paste(dir,'postnatal_stress_summary.rds'))
+saveRDS(postnatal_stress, paste(pathtodata,'postnatal_stress.rds'))
+saveRDS(postnatal_summary, paste(pathtodata,'postnatal_stress_summary.rds'))
 
