@@ -42,6 +42,13 @@ source("Setup_and_functions.R")
 #### ----------------------- reading in the data  ------------------------- ####
 ################################################################################
 
+# NOTE, before we get going: when you call readquick on a file, the function will 
+# replace values of 777, 888 or 999 with NAs unless they are IDCs or IDMs (see 
+# repleacenas function). If you do NOT want this to happen for any other column 
+# (for some reason) use the exclude_col argument with the name of the column that 
+# has "real" 777, 888, or 999 values. 
+
+#-------------------------------------------------------------------------------
 ## Life Events Interview (9 yr)
 # some of the tot 26 items are used mainly for lE domain but also for IR, DV, CR. 
 LE_interview <- readquick("MOTHERTRAUMAINTERVIEW9_24112016.sav") # 5862 obs of 96 columns
