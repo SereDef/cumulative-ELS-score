@@ -35,6 +35,12 @@ source("Setup_and_functions.R")
 #### ------------------------ reading and merging ------------------------- ####
 ################################################################################
 
+# NOTE, before we get going: when you call readquick on a file, the function will 
+# replace values of 777, 888 or 999 with NAs unless they are IDCs or IDMs (see 
+# repleacenas function). If you do NOT want this to happen for any other column 
+# (for some reason) use the exclude_col argument with the name of the column that 
+# has "real" 777, 888, or 999 values. 
+
 #-------------------------------------------------------------------------------
 GR1001v1A<- readquick("GR1001-A_22112016.sav") # 9778 obs. of 17 var
 
