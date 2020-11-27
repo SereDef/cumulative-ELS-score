@@ -15,21 +15,25 @@ if (substr(pathtodata, 1, 1) == "") {
 #### ----------------------------- FUNCTIONS ----------------------------- ####
 
 ## replace NAs
-replacenas <- function(dat, miss_spec = c(777,888,999), col = c(2:length(dat))){
-  for (j in 1:length(miss_spec)){
-    for (i in 1:length(col)){
-      dat[,col[i]] <- ifelse(dat[,col[i]] == miss_spec[j], NA, dat[,col[i]])
+replacenas <- function(dat, miss_spec = c(777,888,999), exclude = "") {
+  for (i in 1:length(dat)) {
+    if (colnames(dat)[i] == "idm" | colnames(dat)[i] == "idc" | colnames(dat)[i] == exclude) {
+      dat[,i] <- dat[,i]
+    } else {
+      dat[,i] <- ifelse(dat[,i] == miss_spec[1] | dat[,i] == miss_spec[2] | dat[,i] == miss_spec[3], NA, dat[,i])
     }
   }
   return (dat)
 }
 #-------------------------------------------------------------------------------
 ## read in data quickly
-readquick <- function(filename, rootdir=pathtodata){ # only works for SPSS files
+readquick <- function(filename, rootdir = pathtodata, exclude_col = "") { # only works for SPSS files
   dataframe <- read.spss(paste(rootdir, filename, sep=""), 
                          use.value.labels = F, to.data.frame = T)
   names(dataframe) <- tolower(names(dataframe))
-  dataframe <- replacenas(dataframe)
+  dataframe <- replacenas(dataframe, exclude = exclude_col) # This line with replace values of 777, 888 or 999
+  # with NAs unless they are IDCs or IDMs (see repleacenas function). If you do not want this to happen for 
+  # any other column (e.g. age) use the exclude_col argument. 
   return(dataframe)
 }
 #-------------------------------------------------------------------------------
