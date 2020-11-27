@@ -1,10 +1,16 @@
 # Point to the necessary libraries
 library(foreign)
+library(car)
 
-pathtodata <- readline(prompt="Enter path to data: ")
+pathtodata <- readline(prompt="Enter path to data: ")  # -> CUSTOMIZE TO APPROPRIATE PATH
+# The code assumes that all raw data is stored in ONE folder.
 
-# The code assumes that all raw data is stored in ONE folder:
-#dir = "/Users/Serena/Desktop/Data/" # -> CUSTOMIZE TO APPROPRIATE PATH
+if (substr(pathtodata, 1, 1) == "") {
+  cat("You did not provide a the path to the data I asked for! RUDE!")
+  pathtodata <- readline(prompt="Enter path to data: ")
+} 
+# else if (substr(pathtodata, nchar(pathtodata), nchar(pathtodata)) != "/" | substr(pathtodata, nchar(pathtodata), nchar(pathtodata)) != "\\") {
+#  cat("Do not forget the last slash in your path!") } else { cat("OK, let's go!") }
 
 #### ----------------------------- FUNCTIONS ----------------------------- ####
 
