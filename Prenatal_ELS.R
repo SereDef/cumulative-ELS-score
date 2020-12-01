@@ -166,7 +166,8 @@ GR1003dep <- readquick("GR1003-BSI D1_22112016.sav") # 9778 obs of 261 vars
 
 GR1003BSI <- data.frame(GR1003dep$idm, 
                         ifelse(GR1003dep$gsi >= 0.71, yes = 1, no = 0)) # Global Sensitivity index, for PS
-                        # DICH: CHECK THE REFERENCE!!!
+                        # DICH: cut-off for maternal psychopathology in as provided 
+                        # in addendum to the BSI manual (De Beurs, 2009).
 colnames(GR1003BSI) <- c("IDM","gsi_mdich")
 
 # GSI- father # this was in Isabel script but it is not used in the score.
@@ -199,15 +200,8 @@ GR1003G <- data.frame(GR1003v1G$idm,
 colnames(GR1003G) <- c("IDM","criminal_record_m","publicordermdich","forcemdich")
 
 #-------------------------------------------------------------------------------
-# NOT USED IN THIS SCORE BUT IN JOLIE'S SCRIPT
+# Paternal variables are NOT USED IN THIS SCORE but can be integrated provided 
 #GR1004v1I<- readquick("GR1004-I_01072012.sav")
-
-# Construct GR1004I 
-#GR1004I <- data.frame(GR1004v1I$idm,
-#                      GR1004v1I$criminal_record_p, # PS
-#                      GR1004v1I$publicorderpdich, # PS
-#                      GR1004v1I$forcepdich) # PS
-#colnames(GR1004I) <- c("IDM","criminal_record_p","publicorderpdich","forcepdich")
 
 #-------------------------------------------------------------------------------
 GR1005v1A<- readquick("GR1005-A_22112016.sav") # 9778 obs of 17 vars
@@ -233,8 +227,8 @@ colnames(GR1005A) <- c("IDM","admitted_to_hospital","examination","obstetric_car
 GR1005v1E <- readquick("GR1005-E_22112016.sav") # 9778 obs of 40 vars
 
 # Combine some  items together.
-GR1005v1E$housing_basic_living = ifelse(GR1005v1E$e0500305 == 1 | GR1005v1E$e0501105 == 1 
-                                        | GR1005v1E$e0501305 == 1, yes = 1, no = 0) 
+GR1005v1E$housing_basic_living = ifelse(GR1005v1E$e0500305 == 2 | GR1005v1E$e0501105 == 2 
+                                        | GR1005v1E$e0501305 == 2, yes = 1, no = 0) 
 # Possession of adequate heating in your home in cold weather. NO | OR |
 # Possession of a washing machine. NO | OR | Possession of a refrigerator. NO. 
 GR1005v1E$housing_defects = ifelse(GR1005v1E$e0800505 == 1 | GR1005v1E$e0800605 == 1 
