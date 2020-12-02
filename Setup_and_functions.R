@@ -14,28 +14,23 @@ if (substr(pathtodata, 1, 1) == "") {
 
 #### ----------------------------- FUNCTIONS ----------------------------- ####
 
-## replace NAs
-replacenas <- function(dat, miss_spec = c(777,888,999), exclude = "") {
+# read in data quickly
+readquick <- function(filename, rootdir = pathtodata, exclude_col = "") { # only works for SPSS files
+  dat <- read.spss(paste(rootdir, filename, sep=""), 
+                   use.value.labels = F, to.data.frame = T)
+  # Get rid of all capital letters in column names (so you don't have to worry)
+  names(dat) <- tolower(names(dat))
+  # Replace values of 777, 888 or 999 with NAs unless they are IDCs or IDMs 
+  # If you do not want this to happen for any other column use the exclude_col argument. 
   for (i in 1:length(dat)) {
-    if (colnames(dat)[i] == "idm" | colnames(dat)[i] == "idc" | colnames(dat)[i] == exclude) {
+    if (colnames(dat)[i] == "idm" | colnames(dat)[i] == "idc" | colnames(dat)[i] == exclude_col) {
       dat[,i] <- dat[,i]
     } else {
-      dat[,i] <- ifelse(dat[,i] == miss_spec[1] | dat[,i] == miss_spec[2] | dat[,i] == miss_spec[3], NA, dat[,i])
-    }
-  }
-  return (dat)
+      dat[,i] <- ifelse(dat[,i] == 777 | dat[,i] == 888 | dat[,i] == 999, NA, dat[,i]) }
+  } 
+  return(dat)
 }
-#-------------------------------------------------------------------------------
-## read in data quickly
-readquick <- function(filename, rootdir = pathtodata, exclude_col = "") { # only works for SPSS files
-  dataframe <- read.spss(paste(rootdir, filename, sep=""), 
-                         use.value.labels = F, to.data.frame = T)
-  names(dataframe) <- tolower(names(dataframe))
-  dataframe <- replacenas(dataframe, exclude = exclude_col) # This line with replace values of 777, 888 or 999
-  # with NAs unless they are IDCs or IDMs (see repleacenas function). If you do not want this to happen for 
-  # any other column (e.g. age) use the exclude_col argument. 
-  return(dataframe)
-}
+
 #-------------------------------------------------------------------------------
 # This function calculates (continuous) BSI scores based on sex and subscale first 
 # and then dichotomizes the scores according to sex specific cutoffs
@@ -74,6 +69,10 @@ fad_scores <- function(set){
 }
 
 #-------------------------------------------------------------------------------
+# Calculate the percentage missing data
+percent_missing <- function(var) { sum(is.na(var)) / length(var) * 100 }
+
+#-------------------------------------------------------------------------------
 # For several risk factors, we have repeated measurements. To keep the score as 
 # comprehensive as possible, we design a function that could apply two different 
 # strategies to combine measurements over time:
@@ -103,14 +102,18 @@ repmeas <- function(items, strategy = 'oncealways'){
     return(temp)}
 }
 #-------------------------------------------------------------------------------
-# Domain scores measure how many adversities are reported. Together with mean nr 
-# of adversities (ranging from 0 to 1) the function can also provide a cumulative 
-# number of adversities (just uncomment it).
-# If a domain is not complete, the domain score is NA. This missing value needs to 
-# be accounted for by multiple imputation.
+# Domain scores measure how many adversities are reported. This function returns 
+# the domain risk score and the percentage of missing values within the domain. 
+# Default score_type is the mean nr of adversities (ranging from 0 to 1), that is
+# NOT adjusted for number of missing values, so whenever a domain is not complete, 
+# the domain score is NA. This missing value needs to be accounted for by multiple 
+# imputation. However, the function can also provide a cumulative number of adversities 
+# (set score_type = 'sum_simple') or a weighted sum score that allows for 25% missing
+# like the one used in Rijlaarsdam et al. (2016) and Cecil et al. (2014) (set 
+# score_type = 'sum_weighted')
 
 # calculate the domain scores
-domainscore <- function(df){
+domainscore <- function(df, score_type = 'mean_simple'){
   # dataframe with all the included items
   df <- data.frame(df)
   # check if all variables in df are dichotomized 
@@ -118,12 +121,21 @@ domainscore <- function(df){
     if (range(df[,i], na.rm = T)[1] == 1 & range(df[,i], na.rm = T)[2] == 2){ df[,i] <- df[,i] - 1}
     else {
       if (range(df[,i], na.rm = T)[1] != 0 | range(df[,i], na.rm = T)[2] != 1 ){
-        stop('Items are not dichotomized')} 
+        stop('Items are not dichotomized') } 
     }
   }
-  # calculate the mean number of events (weighted)
-  temp_mean <- rowMeans(df, na.rm = F) #temp_sum <- rowSums(df, na.rm = F)
-  return(temp_mean)
+  # calculate number of missing items per participant
+  domain_miss = apply(df, 1, percent_missing)
+  # calculate the domain score
+  if (score_type == 'mean_simple') { 
+    score <- rowMeans(df, na.rm = F) 
+  } else if (score_type == 'sum_simple') {
+    score <- rowSums(df, na.rm = F)
+  } else if (score_type == 'sum_weighted') { 
+    score <- ifelse(domain_miss >= 25, NA, 
+             rowSums(df, na.rm = T) * length(df)/(length(df) - rowSums(is.na(df)))) 
+  }
+  return(c(domain_miss, score))
 }
 
 # NOTE: repmeas and domainscore functions require dichotomized variables 

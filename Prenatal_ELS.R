@@ -7,8 +7,8 @@
 # Schuumans (in preparation), here referred to as : Jolie and Isabel.
 
 # First, let's point to the necessary libraries and define all the functions that 
-# are going to be used: replacenas, readquick, domainscore (also repmeas, bsi_scores, 
-# fad_scores that are used in addition in the postnatal stress script)
+# are going to be used: readquick, percent_missing, domainscore (also repmeas, 
+# bsi_scores, fad_scores that are used in addition in the postnatal stress script)
 source("Setup_and_functions.R")
 
 # ATTENTION!!! You will be prompted with an "Enter path to data:" message 
@@ -276,9 +276,12 @@ colnames(child_id) <- c("IDM","IDC")
 # with postnatal outcomes/scores. Note: it will change the number of observations (from 9778 to 9901)
 prenatal_stress <- merge(child_id, prenatal_stress, by = 'IDM', all.x = T)
 
-#-------------------------------------------------------------------------------
-# Let's have a look at risk distribution and missing data per indicator.
+################################################################################
+#------------------------------------------------------------------------------#
+# Before we get to the final scores, some summary stats that may come in handy #
+#------------------------------------------------------------------------------#
 
+# Let's have a look at risk distribution and missing data per indicator.
 prenatal_summary = data.frame(row.names=c("no risk","risk","NA"))
 for (i in 3:ncol(prenatal_stress)) { # ATTENTION, if not merged with child_id, count from 2.
   s = summary(as.factor(prenatal_stress[,i]))
@@ -286,13 +289,26 @@ for (i in 3:ncol(prenatal_stress)) { # ATTENTION, if not merged with child_id, c
   prenatal_summary[,c] <- s }
 
 #-------------------------------------------------------------------------------
+# Apply the percent_missing function to the rows (1) of the entire dataset (total
+# 45 indicators)
+prenatal_stress$pre_percent_missing = apply(prenatal_stress[,3:ncol(prenatal_stress)], # Same as above, if not merged with child_id, count from 2.
+                                            1, percent_missing)
+
+#-------------------------------------------------------------------------------
 
 ################################################################################
-#### --------------- create the (weighted) domain scores ------------------ ####
+#### -------------- create the (un-weighted) domain scores ---------------- ####
 ################################################################################
+
+# ATTENTION! Here we use de default argument of domainscore function: calculating  a 
+# *mean domain score* (range = 0 to 1) that is NOT adjusted for 25% missingness as in 
+# e.g. Rijlaarsdam et al. (2016). If you prefer working with the actual number of risks
+# (i.e. sum score) or the weighted version of it, you can set the argument score_type
+# to 'sum_simple' or 'sum_weighted' respectively (see Setup and functions script
+# for calculation details). 
 
 # LE
-prenatal_stress[,c('pre_life_events')] <- domainscore(prenatal_stress[,c(
+prenatal_stress[,c('pre_LE_percent_missing','pre_life_events')] <- domainscore(prenatal_stress[,c(
   "family_member_died", 
   "friend_relative_died",
   "family_member_ill", 
@@ -310,7 +326,7 @@ prenatal_stress[,c('pre_life_events')] <- domainscore(prenatal_stress[,c(
   "victim_robbery")])
 
 # CR
-prenatal_stress[,c('pre_contextual_risk')] <- domainscore(prenatal_stress[,c(
+prenatal_stress[,c('pre_CR_percent_missing','pre_contextual_risk')] <- domainscore(prenatal_stress[,c(
   "financial_problems", 
   "financial_difficulties", 
   "income_reduced",
@@ -319,7 +335,7 @@ prenatal_stress[,c('pre_contextual_risk')] <- domainscore(prenatal_stress[,c(
   "housing_basic_living")])
 
 # PS
-prenatal_stress[,c('pre_personal_stress')] <- domainscore(prenatal_stress[,c(
+prenatal_stress[,c('pre_PS_percent_missing','pre_personal_stress')] <- domainscore(prenatal_stress[,c(
   "age_mdich", 
   "gsi_mdich", 
   "forcemdich", 
@@ -328,7 +344,7 @@ prenatal_stress[,c('pre_personal_stress')] <- domainscore(prenatal_stress[,c(
   "edu")])
 
 # IS
-prenatal_stress[,c('pre_interpersonal_stress')] <- domainscore(prenatal_stress[,c(
+prenatal_stress[,c('pre_IS_percent_missing','pre_interpersonal_stress')] <- domainscore(prenatal_stress[,c(
   "difficulties_contacts",
   "difficulties_partner",
   "difficulties_family_friend", 
