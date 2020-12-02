@@ -7,7 +7,8 @@
 # the postnatal cumulative risk score used in Schuumans (in preparation). 
 
 # First, let's point to the necessary libraries and define all the functions that 
-# are going to be used: replacenas, readquick, domainscore, repmeas, bsi_scores & fad_scores.
+# are going to be used: readquick, percent_missing, repmeas, domainscore, 
+# bsi_scores & fad_scores.
 source("Setup_and_functions.R") 
 
 # ATTENTION!!! You will be prompted with an "Enter path to data:" message 
@@ -334,12 +335,12 @@ f_anx_9yrs = bsi_scores(items = c('d0100183_cleaned', 'd0100483_cleaned', 'd0100
                         cutoff = c(.71, .71, .80, .80, .75))
 
 # Construct the set to add to the dataset
-BSI_dich <- data.frame(BSI$idc, BSI$idm, BSI$age_gr1065,
+BSI_dich <- data.frame(BSI$idc, BSI$idm,
                        m_is_3yrs, m_is_9yrs, f_is_3yrs, f_is_9yrs, 
                        m_dep_3yrs, m_dep_9yrs, f_dep_3yrs, f_dep_9yrs,
                        m_anx_3yrs, m_anx_9yrs, f_anx_3yrs, f_anx_9yrs)
                        # BSI$gr1065_filledinby, BSI$gr1066_filledinby, BSI$gr1081_filledinby, BSI$gr1083_filledinby # Isabel also included these, but I don't think they are used
-colnames(BSI_dich) <- c("IDC", "IDM", "BSI_age", "m_is_3yrs", "m_is_9yrs", "f_is_3yrs", "f_is_9yrs", 
+colnames(BSI_dich) <- c("IDC", "IDM", "m_is_3yrs", "m_is_9yrs", "f_is_3yrs", "f_is_9yrs", 
                         "m_dep_3yrs", "m_dep_9yrs", "f_dep_3yrs", "f_dep_9yrs",
                         "m_anx_3yrs", "m_anx_9yrs", "f_anx_3yrs", "f_anx_9yrs")
                         
@@ -478,12 +479,14 @@ postnatal_stress$family_size <- repmeas(postnatal_stress[,c('fam_size_3yrs', 'fa
 postnatal_stress$bullying <- repmeas(postnatal_stress[,c('bully_physical_m','bully_verbal_m','bully_excluded_m', 
                                                          'bully_physical_t','bully_verbal_t','bully_excluded_t')])
 
+################################################################################
+#------------------------------------------------------------------------------#
+# Before we get to the final scores, some summary stats that may come in handy #
+#------------------------------------------------------------------------------#
 
-#-------------------------------------------------------------------------------
 # Let's have a look at risk distribution and missing data per indicator.
-
 postnatal_summary = data.frame(row.names=c("no risk","risk","NA"))
-for (i in 4:ncol(postnatal_stress)) { # because the third column is not dichotomous (BSI_age)
+for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotomous (BSI_age)
   s = summary(as.factor(postnatal_stress[,i]))
   if (length(s) < 3) { # I am doing this ugly thing as a quick&dirty fix for lack of risk in fam_size_9yrs
     s = c(s[1], 0, s[2])
@@ -492,17 +495,33 @@ for (i in 4:ncol(postnatal_stress)) { # because the third column is not dichotom
   c = colnames(postnatal_stress)[i]
   postnatal_summary[,c] <- s }
 
+#-------------------------------------------------------------------------------
+# Apply the percent_missing function to the rows (1) of the entire dataset (total
+# 51 indicators). NOTE: this is a little less straightforward compared to the prenatal 
+# score, so to be safe, I will list all the indicator names. 
+postnatal_stress$post_percent_missing = apply(postnatal_stress[,c(
+  'le1','le2','le3','le4','le5','le6','le7','rep_grade','le17','le23','le24','friend_moved','fire_burglary', # LE
+  'tension_at_work','material_deprivation','financial_difficulties','le9','trouble_pay','income_once','income_chronic','unemployed_once','unemployed_chronic', # CR
+  'm_education','p_education','m_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
+  'marital_problems','marital_status','family_size','m_fad_5yrs','m_fad_9yrs','p_fad_9yrs','le11','le12','le13','le14','le16', # IR
+  'm_harsh_parent','p_harsh_parent','bullying','le18','le19','le20','le21','le22')], # DV
+                                             1, percent_missing)
+
+#-------------------------------------------------------------------------------
+
 ################################################################################
-#### --------------- create the (weighted) domain scores ------------------ ####
+#### -------------- create the (un-weighted) domain scores ---------------- ####
 ################################################################################
 
-# For the specific items and time of measurement, consult the excel file. 
-# The scores are cumulative: how many risk factors are present for each person. 
-# We work with a *mean score* of items reported (hence domain score range = 0 to 1). 
-# If preferred the code allows for working with the actual number as well.
+# ATTENTION! Here we use de default argument of domainscore function: calculating  a 
+# *mean domain score* (range = 0 to 1) that is NOT adjusted for 25% missingness as in 
+# e.g. Rijlaarsdam et al. (2016). If you prefer working with the actual number of risks
+# (i.e. sum score) or the weighted version of it, you can set the argument score_type
+# to 'sum_simple' or 'sum_weighted' respectively (see Setup and functions script
+# for calculation details). 
 
 # LE
-postnatal_stress[,c('post_life_events')] <- domainscore(postnatal_stress[,c(
+postnatal_stress[,c('post_LE_percent_missing','post_life_events')] <- domainscore(postnatal_stress[,c(
   'le1', # Did your child get seriously sick or did he/she have an accident? Yes
   'le2', # Did a family member get seriously sick or a serious accident? Yes
   'le3', # Did somebody else, who is important to your child, get seriously sick or have a serious accident? Yes
@@ -519,7 +538,7 @@ postnatal_stress[,c('post_life_events')] <- domainscore(postnatal_stress[,c(
   )])
 
 # CR
-postnatal_stress[,c('post_contextual_risk')] <- domainscore(postnatal_stress[,c(
+postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domainscore(postnatal_stress[,c(
   'tension_at_work', # Tension at the parents’ work that has been felt at home; yes
   'material_deprivation', # Material deprivation; yes
   'financial_difficulties', # Does your family have or ever had financial difficulties? Yes 
@@ -532,7 +551,7 @@ postnatal_stress[,c('post_contextual_risk')] <- domainscore(postnatal_stress[,c(
   )])
 
 # PR
-postnatal_stress[,c('post_parental_risk')] <- domainscore(postnatal_stress[,c(
+postnatal_stress[,c('post_PR_percent_missing','post_parental_risk')] <- domainscore(postnatal_stress[,c(
   'm_education', # Education main caregiver; < phase 2 (higher) secondary education, once 
   'p_education', # Education partner; < phase 2 (higher) secondary education , once
   'm_interpersonal_sensitivity', # Interpersonal sensitivity main caregiver; > 0.95
@@ -540,13 +559,13 @@ postnatal_stress[,c('post_parental_risk')] <- domainscore(postnatal_stress[,c(
   'm_depression', # Depression main caregiver; > 0.80
   'p_depression', # Depression partner; > 0.71
   'm_anxiety', # Anxiety main caregiver; > 0.71
-  'm_anxiety', # Anxiety partner; > 0.65
+  'p_anxiety', # Anxiety partner; > 0.65
   'm_age', # Early parenthood; age mother <19 yrs
   'p_age' # Early parenthood; age partner <19 yrs
   )])
 
 # IR
-postnatal_stress[,c('post_interpersonal_risk')] <- domainscore(postnatal_stress[,c(
+postnatal_stress[,c('post_IR_percent_missing','post_interpersonal_risk')] <- domainscore(postnatal_stress[,c(
   'marital_problems', # Problems with marriage relations; yes
   'marital_status', # Marital status; single
   'family_size', # Family size; > 3 children
@@ -561,7 +580,7 @@ postnatal_stress[,c('post_interpersonal_risk')] <- domainscore(postnatal_stress[
 )])
 
 # DV
-postnatal_stress[,c('post_direct_victimization')] <- domainscore(postnatal_stress[,c(
+postnatal_stress[,c('post_DV_percent_missing','post_direct_victimization')] <- domainscore(postnatal_stress[,c(
   'm_harsh_parent', # Harsh parenting main caregiver > 80th percentile
   'p_harsh_parent', # Harsh parenting partner > 80th percentile
   'bullying', # Bullying more than once a week according to teacher or main caregiver; yes
