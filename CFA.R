@@ -1,6 +1,7 @@
 # load the lavaan package
 library(lavaan)
 
+# check if the path to the data is already in memory, otherwise ask for it. 
 if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to data: ") }
 
 # ------------------------------------------------------------------------------
@@ -9,7 +10,7 @@ if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to dat
 ############################  PRENATAL ELS SCORE  ##############################
 ################################################################################
 
-# Load dataset
+# Load dataset (created using the Prenatal_ELS.R script)
 pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds'))
 
 # ------------------------------------------------------------------------------
@@ -64,7 +65,7 @@ summary(pre_IS_fit, fit.measures=TRUE, standardized=TRUE)
 ###########################  POSTNATAL ELS SCORE  ##############################
 ################################################################################
 
-# Load dataset
+# Load dataset (created using the Postnatal_ELS.R script)
 post_risk <- readRDS(paste(pathtodata, 'postnatal_stress.rds'))
 
 # ------------------------------------------------------------------------------
