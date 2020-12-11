@@ -414,7 +414,7 @@ postnatal_stress$rep_grade <- repmeas(postnatal_stress[,c('rep_grade_8yrs','le8'
 
 # Financial difficulties were measured at age 3 (GR1065) and 9 (le10). 
 # Once a risk, always a risk strategy:
-postnatal_stress$financial_difficulties <- repmeas(postnatal_stress[,c('fidi_3yrs', 'le10')]) 
+postnatal_stress$financial_difficulties_childhood <- repmeas(postnatal_stress[,c('fidi_3yrs', 'le10')]) 
 
 # Trouble paying for food was measured at age 3 (GR1065) and 9 (GR1081). 
 # Once a risk, always a risk strategy:
@@ -501,7 +501,7 @@ for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotom
 # score, so to be safe, I will list all the indicator names. 
 postnatal_stress$post_percent_missing = apply(postnatal_stress[,c(
   'le1','le2','le3','le4','le5','le6','le7','rep_grade','le17','le23','le24','friend_moved','fire_burglary', # LE
-  'tension_at_work','material_deprivation','financial_difficulties','le9','trouble_pay','income_once','income_chronic','unemployed_once','unemployed_chronic', # CR
+  'tension_at_work','material_deprivation','financial_difficulties_childhood','le9','trouble_pay','income_once','income_chronic','unemployed_once','unemployed_chronic', # CR
   'm_education','p_education','m_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
   'marital_problems','marital_status','family_size','m_fad_5yrs','m_fad_9yrs','p_fad_9yrs','le11','le12','le13','le14','le16', # IR
   'm_harsh_parent','p_harsh_parent','bullying','le18','le19','le20','le21','le22')], # DV
@@ -541,7 +541,7 @@ postnatal_stress[,c('post_LE_percent_missing','post_life_events')] <- domainscor
 postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domainscore(postnatal_stress[,c(
   'tension_at_work', # Tension at the parents’ work that has been felt at home; yes
   'material_deprivation', # Material deprivation; yes
-  'financial_difficulties', # Does your family have or ever had financial difficulties? Yes 
+  'financial_difficulties_childhood', # Does your family have or ever had financial difficulties? Yes 
   'le9', # Are/were there problems in the neighborhood? (e.g. vandalism or insecurity); yes
   'trouble_pay', # Trouble paying for your food, rent, electricity bill and such in the past year? Yes
   'income_once', # Income household; < 1600 euros p/m; once 

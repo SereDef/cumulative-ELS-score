@@ -243,7 +243,7 @@ GR1005E <- data.frame(GR1005v1E$idm,
                       GR1005v1E$housing_defects,
                       ifelse(GR1005v1E$e0400105 > 1, yes = 1, no = 0)) # Difficulty in paying for food, rent, electricity bill and suchlike in the past year?
                       # DICH: "Great difficulty"/"Some difficulty" = risk. "No difficulty at all" = no risk. 
-colnames(GR1005E) <- c("IDM","housing_basic_living","housing_defects","financial_difficulties")
+colnames(GR1005E) <- c("IDM","housing_basic_living","housing_defects","financial_difficulties_pregnancy")
 
 #-------------------------------------------------------------------------------
 fetal_general <- readquick("FETALPERIOD-ALLGENERALDATA_29012018.sav") # 9778 obs of 95 var
@@ -328,7 +328,7 @@ prenatal_stress[,c('pre_LE_percent_missing','pre_life_events')] <- domainscore(p
 # CR
 prenatal_stress[,c('pre_CR_percent_missing','pre_contextual_risk')] <- domainscore(prenatal_stress[,c(
   "financial_problems", 
-  "financial_difficulties", 
+  "financial_difficulties_pregnancy", 
   "income_reduced",
   "housing_defects", 
   "housing_adequacy", 

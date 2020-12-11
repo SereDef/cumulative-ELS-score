@@ -29,7 +29,7 @@ prenatal_LE.model <- '
 life_events =~ family_member_died + friend_relative_died + family_member_ill + admitted_to_hospital + health + unemployed + mother_work_study_problems + moved_house + blood_loss + examination + baby_worried + pregnancy_worried + obstetric_care + pregnancy_planned + victim_robbery '
 
 prenatal_CR.model <- ' 
-contextual_risk =~ financial_problems + financial_difficulties + income_reduced + housing_defects + housing_adequacy + housing_basic_living '
+contextual_risk =~ financial_problems + financial_difficulties_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living '
 
 prenatal_PS.model <- ' 
 personal_stress =~ age_mdich + gsi_mdich + forcemdich + publicordermdich + criminal_record_m + edu '
@@ -82,7 +82,7 @@ postnatal_LE.model <- '
 life_events =~ le1 + le2 + le3 + le4 + le5 + le6 + le7 + rep_grade + le17 + le23 + le24 + friend_moved + fire_burglary '
 
 postnatal_CR.model <- ' 
-contextual_risk =~ tension_at_work + material_deprivation + financial_difficulties + le9 + trouble_pay + income_once + income_chronic + unemployed_once + unemployed_chronic '
+contextual_risk =~ tension_at_work + material_deprivation + financial_difficulties_childhood + le9 + trouble_pay + income_once + income_chronic + unemployed_once + unemployed_chronic '
 
 postnatal_PR.model <- ' 
 parental_risk =~ m_education + p_education + m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
