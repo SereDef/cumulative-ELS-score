@@ -1,5 +1,6 @@
 # load the lavaan package
 library(lavaan)
+library(psych)
 
 # check if the path to the data is already in memory, otherwise ask for it. 
 if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to data: ") }
@@ -114,3 +115,18 @@ summary(post_IR_fit, fit.measures=TRUE, standardized=TRUE)
 summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 
 # ------------------------------------------------------------------------------
+# Quick Exploratory Factor Analysis
+# AFTER IMPUTATION 
+
+datarisk <- readRDS(paste(pathtodata, 'ELS_PCM_imputed.rds'))
+pre = datarisk[2:45]
+post = datarisk[46:96]
+
+prefact = factanal(pre, factors = 4, rotation = 'promax')
+print(prefact, cutoff = .3)
+
+postfact = factanal(post, factors = 5, rotation = 'promax')
+print(postfact, cutoff = .3)
+
+psych::scree(pre)
+psych::scree(post)
