@@ -81,7 +81,7 @@ colnames(GR1003A8) <- c("IDM","blood_loss")
 GR1003v1C<- readquick("GR1003-C_08042016.sav") # 9778 obs. of 90 var
 
 # First I need to recode some "Not applicable" answers into NAs.
-  # To be combined in mother_work_study_problems
+  # To be combined in work_study_problems
 GR1003v1C$c1200103[GR1003v1C$c1200103 == 5] <- NA # Have you had problems with or at work?
 GR1003v1C$c1300103[GR1003v1C$c1300103 == 5] <- NA # Problems with school or with your studies?
   # To be combined in difficulties_family_friend
@@ -97,10 +97,10 @@ GR1003v1C$c0500103[GR1003v1C$c0500103 == 5] <- NA # Difficulties in contact with
 # Combine some items together (change here if you want to use them separately)
 GR1003v1C$family_member_died = ifelse(GR1003v1C$c0100803 == 0 | GR1003v1C$c0100903 == 0, yes = 1, no = 0)
 # One of your children died in the last 12 months? YES | OR | Your partner died in the last 12 months? YES
-GR1003v1C$family_member_ill = ifelse(GR1003v1C$c0100603 == 0 | GR1003v1C$c0100703 == 0, yes = 1, no = 0)
+GR1003v1C$family_member_ill_pregnancy = ifelse(GR1003v1C$c0100603 == 0 | GR1003v1C$c0100703 == 0, yes = 1, no = 0)
 # One or more of your children seriously been ill in the last 12 months? YES | OR | Other family member 
 # seriously been ill in the last 12 months? YES
-GR1003v1C$mother_work_study_problems = ifelse(GR1003v1C$c1200103 > 1 | GR1003v1C$c1300103 > 1, yes = 1, no = 0)
+GR1003v1C$work_study_problems = ifelse(GR1003v1C$c1200103 > 1 | GR1003v1C$c1300103 > 1, yes = 1, no = 0)
 # Have you had problems with or at work? "Slight"/"Moderate"/"Serious" | OR | Problems with school or with your studies
 # in the past year? "Slight"/"Moderate"/"Serious".
 GR1003v1C$difficulties_family_friend = ifelse(GR1003v1C$c0600103 > 1 | GR1003v1C$c0800103 > 1
@@ -112,8 +112,8 @@ GR1003v1C$difficulties_family_friend = ifelse(GR1003v1C$c0600103 > 1 | GR1003v1C
 # Finally, construct GR1003C
 GR1003C <- data.frame(GR1003v1C$idm, 
                       GR1003v1C$family_member_died, # LE
-                      GR1003v1C$family_member_ill, # LE
-                      GR1003v1C$mother_work_study_problems, # LE
+                      GR1003v1C$family_member_ill_pregnancy, # LE
+                      GR1003v1C$work_study_problems, # LE
                       recode(GR1003v1C$c0101003,'0=1; 1=0'), # Member of your family or a good friend died in the last 12 months? (1=yes; 0=no) # LE
                       recode(GR1003v1C$c0100303,'0=1; 1=0'), # Have you been a victim of robbery in the last 12 months? (1=yes; 0=no) # LE
                       recode(GR1003v1C$c0100403,'0=1; 1=0'), # Have you become unemployed in the last 12 months? (1=yes; 0=no) # LE
@@ -131,11 +131,11 @@ GR1003C <- data.frame(GR1003v1C$idm,
                       recode(GR1003v1C$c0101103,'0=1; 1=0'), # Have you had a divorce in the last 12 months? (1=yes; 0=no) # IR
                       ifelse(GR1003v1C$crowding > 3, yes = 1, no = 0)) # With how many people does the pregnant woman live? # IR
                       # DICH: more than 3 people = risk. 3 or less people = no risk. 
-colnames(GR1003C) <- c("IDM","family_member_died", "family_member_ill", "mother_work_study_problems",
+colnames(GR1003C) <- c("IDM","family_member_died", "family_member_ill_pregnancy", "work_study_problems",
                        "friend_relative_died", "victim_robbery", "unemployed", "moved_house",
                        "housing_adequacy", "financial_problems","income_reduced", 
                        "difficulties_partner", "difficulties_family_friend", "difficulties_contacts", 
-                       "divorce", "famsize")
+                       "divorce_pregnancy", "family_size_pregnancy")
 
 #-------------------------------------------------------------------------------
 GR1003v1J<- readquick("GR1003-Family Assessment Device J1-J12_22112016.sav") # 9778 obs. of 13 vars
@@ -168,7 +168,7 @@ GR1003BSI <- data.frame(GR1003dep$idm,
                         ifelse(GR1003dep$gsi >= 0.71, yes = 1, no = 0)) # Global Sensitivity index, for PS
                         # DICH: cut-off for maternal psychopathology in as provided 
                         # in addendum to the BSI manual (De Beurs, 2009).
-colnames(GR1003BSI) <- c("IDM","gsi_mdich")
+colnames(GR1003BSI) <- c("IDM","m_psychopathology")
 
 # GSI- father # this was in Isabel script but it is not used in the score.
 # GR1004dep <- readquick("GR1004-BSI G1_22112016.sav") # 9778 obs of 261 
@@ -197,7 +197,7 @@ GR1003G <- data.frame(GR1003v1G$idm,
                       # DICH: "Once"/"2-3 times"/"4-5 times"/"more than 6 times" = risk. "Never" = no risk.
                       ifelse(GR1003v1G$force_m > 0, yes = 1, no = 0)) # PS
                       # DICH: "Once"/"2-3 times"/"4-5 times"/"more than 6 times" = risk. "Never" = no risk.
-colnames(GR1003G) <- c("IDM","criminal_record_m","publicordermdich","forcemdich")
+colnames(GR1003G) <- c("IDM","m_criminal_record","m_violence_property","m_violence_people")
 
 #-------------------------------------------------------------------------------
 # Paternal variables are NOT USED IN THIS SCORE but can be integrated provided 
@@ -243,7 +243,7 @@ GR1005E <- data.frame(GR1005v1E$idm,
                       GR1005v1E$housing_defects,
                       ifelse(GR1005v1E$e0400105 > 1, yes = 1, no = 0)) # Difficulty in paying for food, rent, electricity bill and suchlike in the past year?
                       # DICH: "Great difficulty"/"Some difficulty" = risk. "No difficulty at all" = no risk. 
-colnames(GR1005E) <- c("IDM","housing_basic_living","housing_defects","financial_difficulties_pregnancy")
+colnames(GR1005E) <- c("IDM","housing_basic_living","housing_defects","trouble_pay_pregnancy")
 
 #-------------------------------------------------------------------------------
 fetal_general <- readquick("FETALPERIOD-ALLGENERALDATA_29012018.sav") # 9778 obs of 95 var
@@ -254,7 +254,8 @@ demogr <- data.frame(fetal_general$idm,
                      fetal_general$mardich, # marital status: "No partner" (for IS)
                      ifelse(fetal_general$educm <= 3, yes = 1, no = 0)) # Highest education finished (for PS)
                      # DICH: "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
-colnames(demogr) <- c("IDM","age_mdich","mardich","edu")
+                     # based on Centraal Bureau voor de Statistiek (2016). 
+colnames(demogr) <- c("IDM","early_pregnancy","marital_status_pregnancy","m_education_pregnancy")
 
 #-------------------------------------------------------------------------------
 # This function merges together all separate dataframes according to the IDM 
@@ -309,60 +310,61 @@ prenatal_stress$pre_percent_missing = apply(prenatal_stress[,3:ncol(prenatal_str
 
 # LE
 prenatal_stress[,c('pre_LE_percent_missing','pre_life_events')] <- domainscore(prenatal_stress[,c(
-  "family_member_died", 
-  "friend_relative_died",
-  "family_member_ill", 
-  "admitted_to_hospital",
-  "health", 
-  "unemployed", 
-  "mother_work_study_problems",
-  "moved_house", 
-  "blood_loss", 
-  "examination", 
-  "baby_worried", 
-  "pregnancy_worried",
-  "obstetric_care", 
-  "pregnancy_planned", 
-  "victim_robbery")])
+  "family_member_died", # One of your children |OR| Your partner died in the last 12 months? YES
+  "friend_relative_died", # Member of your family or a good friend died in the last 12 months? YES
+  "family_member_ill_pregnancy", # One or more of your children |OR| Other family member seriously been ill in the last 12 months? YES
+  "admitted_to_hospital", # Admitted to a hospital (>24 hours) during this pregnancy? YES
+  "health", # Generally how would you describe your health? "Poor"/"Moderate" = risk. "Good"/"Very Good"/"Excellent" = no risk.
+  "unemployed", # Have you become unemployed in the last 12 months? YES
+  "work_study_problems", # Have you had problems with or at work? |OR| Problems with school or with your studies in the past year? "Slight"/"Moderate"/"Serious".
+  "moved_house", # Have you yourself moved house in the last 12 months? YES
+  "blood_loss", # Have you suffered from vaginal blood loss in the past 2 months? "Daily"/"Few days a week"/"Once a week"/"Less than once a week" = risk. "Never" = no risk. 
+  "examination", # Chorionic villus sampling test |OR| Aminiocentesis test |OR| Triple (maternal serum) test |OR| Ultrasound for nuchal translucency test during this pregnancy? YES
+  "baby_worried", # I am worried about the health of my baby. "Almost always"/"Often" = risk. "Few"/"Sometimes"/"Never" = no risk.
+  "pregnancy_worried", # I worry whether the pregnancy will go well or not. "Almost always"/"Often" = risk. "Few"/"Sometimes"/"Never" = no risk.
+  "obstetric_care", # General satisfaction about the obstetric care so far. "Very dissatisfied"/"Somewhat dissatisfied" = risk. "Very satisfied"/"Fairly satisfied" = no risk.
+  "pregnancy_planned", # Was this pregnancy planned? NO
+  "victim_robbery")]) # Have you been a victim of robbery in the last 12 months? (1=yes; 0=no) # LE
 
 # CR
 prenatal_stress[,c('pre_CR_percent_missing','pre_contextual_risk')] <- domainscore(prenatal_stress[,c(
-  "financial_problems", 
-  "financial_difficulties_pregnancy", 
-  "income_reduced",
-  "housing_defects", 
-  "housing_adequacy", 
-  "housing_basic_living")])
+  "financial_problems", # Have you had any financial problems in the past year? Slight"/"Moderate"/"Serious" = risk. "No" = no risk.
+  "trouble_pay_pregnancy", # Difficulty in paying for food, rent, electricity bill and suchlike in the past year? "Great difficulty"/"Some difficulty" = risk. "No difficulty at all" = no risk.
+  "income_reduced", # Downturn in financial situation in the last 12 months? YES
+  "housing_defects", # Often had problems with cold or draft in your home |OR| misted windows in your sitting room |OR| damp patches, mold on the wall, furniture in the last year? YES
+  "housing_adequacy", # Have you had housing problems in the past year? "Slight"/"Moderate"/"Serious" = risk. "No" = no risk.
+  "housing_basic_living")]) # Possession of adequate heating in your home in cold weather |OR| a washing machine |OR| a refrigerator
 
 # PS
 prenatal_stress[,c('pre_PS_percent_missing','pre_personal_stress')] <- domainscore(prenatal_stress[,c(
-  "age_mdich", 
-  "gsi_mdich", 
-  "forcemdich", 
-  "publicordermdich", 
-  "criminal_record_m", 
-  "edu")])
+  "early_pregnancy", # Mother younger than 19 years at intake. 
+  "m_psychopathology", # Global Sensitivity index >= 0.71 (De Beurs, 2009).
+  "m_violence_people", # Threatened anyone |OR| Hit anyone so hard that he or she was injured |OR| Injured anyone with a knife or weapon in the past two years ("Once"/"2-3 times"/"4-5 times"/"more than 6 times")
+  "m_violence_property", # Deliberately damaged or vandalised |OR| Damaged property of another person in the past two years ("Once" or "2-3 times").
+  "m_criminal_record", # Do you have a criminal record? YES
+  "m_education_pregnancy")]) # Highest education finished "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
+
 
 # IS
 prenatal_stress[,c('pre_IS_percent_missing','pre_interpersonal_stress')] <- domainscore(prenatal_stress[,c(
-  "difficulties_contacts",
-  "difficulties_partner",
-  "difficulties_family_friend", 
-  "mardich", 
-  "divorce",
-  "family_support", 
-  "family_acceptance", 
-  "family_affection",
-  "family_acception", 
-  "family_trust", 
-  "family_painful_feelings",
-  "family_decisions", 
-  "family_conflict", 
-  "family_decisions_problems",
-  "family_plans", 
-  "family_talk_sadness", 
-  "family_talk_worries", 
-  "famsize")])
+  "difficulties_contacts", # Difficulties in contact with others in the past year? "Slight"/"Moderate"/"Serious" = risk. "No" = no risk.
+  "difficulties_partner", # Difficulties between you and your partner? "Slight"/"Moderate"/"Serious" = risk. "No" = no risk.
+  "difficulties_family_friend", # Difficulties between you and your parents in law? |OR| between you and one or more brothers or sisters? |OR| problems with people who are your friends? "Slight"/"Moderate"/"Serious"
+  "marital_status_pregnancy", # Marital status: "No partner"
+  "divorce_pregnancy", # Have you had a divorce in the last 12 months? YES
+  "family_support", # If there are problems we can count on each other. NO
+  "family_acceptance", # People in our family accept each other. NO
+  "family_affection", # We can express our feelings to each other. NO
+  "family_acception", # People in our family feel accepted. NO
+  "family_trust", # We trust each other. NO
+  "family_painful_feelings", # A lot of unpleasant and painful feelings. YES
+  "family_decisions", # Decision making is a problem in our family. YES
+  "family_conflict", # We do not get on well with each other. YES
+  "family_decisions_problems", # We are able to make decisions. NO
+  "family_plans", # Difficult making plans to do something with family. YES
+  "family_talk_sadness", # We cannot talk to each other about any sadness. YES
+  "family_talk_worries", # We avoid talking about worries and problems. YES
+  "family_size_pregnancy")]) # With how many people does the pregnant woman live? >3 people = risk. <= 3 people = no risk.
 
 ################################################################################
 #### --------------------------- save and run ----------------------------- ####

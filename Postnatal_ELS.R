@@ -83,9 +83,10 @@ life_events <-
              LE_interview$le22, # Did somebody spread mean rumors or gossip about your child? Yes
              LE_interview$le23, # Did your child move? Yes 
              LE_interview$le24) # Did your child change schools? Yes
-colnames(life_events) <- c("IDC","le1","le2","le3","le4","le5","le6","le7","le8",
-                           "le9","le10","le11","le12","le13","le14","le16","le17",
-                           "le18","le19","le20","le21","le22","le23","le24")
+colnames(life_events) <- c("IDC","sick_or_accident","family_member_ill","smbd_important_ill","parent_died","smbd_important_died","pet_died","school_workload",
+                           "rep_grade_9yrs","neiborhood_problems","fidi_9yrs","conflict_family_member","conflict_smbd_else","conflict_in_family","divorce_childhood",
+                           "argument_friend","lost_smth_important","physical_violence","physical_threats","sexual_harrasment","sexual_behavior","rumors_or_gossip",
+                           "moved","changed_school")
 
 #-------------------------------------------------------------------------------
 ## Parenting behavior (3 yr)
@@ -114,7 +115,7 @@ GR1065 <- data.frame(GR1065v1$idc,
                      GR1065v1$g0202365, # unemployment (with GR075 and GR1081)
                      GR1065v1$g0200565, # Tension at the parents’ work that has been felt at home; yes
                      GR1065v1$g0201965) # Problems with marriage relations; yes
-colnames(GR1065) <- c("IDC", "friend_moved", "fire_burglary", "fidi_3yrs", "empl_3yrs",
+colnames(GR1065) <- c("IDC", "friend_moved", "fire_or_burglary", "fidi_3yrs", "empl_3yrs",
                       "tension_at_work", "marital_problems")
 
 #-------------------------------------------------------------------------------
@@ -154,7 +155,7 @@ GR1075 <- data.frame(GR1075v1$idc,
                      ifelse(GR1075v1$educp3 <= 3, yes = 1, no = 0), # paternal education 3 yrs (for PR)
                      ifelse(GR1075v1$educp5 <= 3, yes = 1, no = 0), # paternal education 5 yrs (for PR)
                             # DICH: according to Statistics Netherlands (2016), 
-                            # an educational level of secondary phase 1 or below = risk.
+                            # an educational level of secondary phase 2 or below = risk.
                      GR1075v1$mar_dich5, # Marital status: single (with GR1065 and le14 in IR)
                      ifelse(GR1075v1$income5 < 4, yes = 1, no = 0)) # household income (for CR)
                             # DICH: according to the Central Statistic Netherlands (2013). 
@@ -190,7 +191,7 @@ GR1079v1 <- readquick("20141027_TRFteacherCleaned.sav") # 7580 obs. of  336
 
 # Construct GR1079 # used in DV score 
 GR1079 <- data.frame(GR1079v1$idc, 
-                     ifelse(GR1079v1$d0100179 >= 3, yes = 1, no = 0), # physical bulying (hit,kick,pinch,bite) according to the teacher
+                     ifelse(GR1079v1$d0100179 >= 3, yes = 1, no = 0), # physical bulying (hit, kick, pinch, bite) according to the teacher
                      ifelse(GR1079v1$d0100279 >= 3, yes = 1, no = 0), # verbal bullying (laugh at, insult, tease) according to the teacher
                      ifelse(GR1079v1$d0100379 >= 3, yes = 1, no = 0)) # excluded, according to the teacher
                             # DICH: based on previous work on bullying in Gen R (Muetzel et al., 2019).
@@ -238,7 +239,7 @@ GR1081 <- data.frame(GR1081v1$idc,
                      ifelse(GR1081v1$e0600181_v2 > 1, yes = 1, no = 0), # trouble paying for food, rent, electricity
                             # DICH: ‘no problems at all’ = no risk, ‘few problems’ to ‘a lot problems’ = risk.
                      recode(GR1081v1$e0100281_v2,'0=1; 1=0'), # Sufficient heating in house during cold weather # INVERSE
-                     recode(GR1081v1$e0100381_v2,'0=1; 1=0'), # pay rent of mortgage without problems # INVERSE
+                     recode(GR1081v1$e0100381_v2,'0=1; 1=0'), # pay rent or mortgage without problems # INVERSE
                      recode(GR1081v1$e0100481_v2,'0=1; 1=0'), # on average one hot meal per day # INVERSE
                      recode(GR1081v1$e0100581_v2,'0=1; 1=0'), # own or lease a car # INVERSE
                      recode(GR1081v1$e0100681_v2,'0=1; 1=0'), # own a washing machine # INVERSE
@@ -410,15 +411,15 @@ postnatal_stress <- merge(postnatal_stress, early_parent, by = 'IDM', all = T)
 
 # Repeating a grade was measured by maternal report at age 8 (GR1080), 9 (le8) 
 # and 10 (GR1082). # Once a risk, always a risk strategy:
-postnatal_stress$rep_grade <- repmeas(postnatal_stress[,c('rep_grade_8yrs','le8','rep_grade_10yrs')])
+postnatal_stress$rep_grade <- repmeas(postnatal_stress[,c('rep_grade_8yrs','rep_grade_9yrs','rep_grade_10yrs')])
 
 # Financial difficulties were measured at age 3 (GR1065) and 9 (le10). 
 # Once a risk, always a risk strategy:
-postnatal_stress$financial_difficulties_childhood <- repmeas(postnatal_stress[,c('fidi_3yrs', 'le10')]) 
+postnatal_stress$financial_difficulties <- repmeas(postnatal_stress[,c('fidi_3yrs', 'fidi_9yrs')]) 
 
 # Trouble paying for food was measured at age 3 (GR1065) and 9 (GR1081). 
 # Once a risk, always a risk strategy:
-postnatal_stress$trouble_pay <- repmeas(postnatal_stress[,c('trouble_pay_3yrs','trouble_pay_9yrs')]) 
+postnatal_stress$trouble_pay_childhood <- repmeas(postnatal_stress[,c('trouble_pay_3yrs','trouble_pay_9yrs')]) 
 
 # Income was assessed at age 3 (GR1065), 5 (GR1075) and 9 (GR1081).
 # Two items: once-always + chronic risk strategy.
@@ -467,7 +468,7 @@ postnatal_stress$p_anxiety <- repmeas(postnatal_stress[,c("f_anx_3yrs", "f_anx_9
 
 # Marital status was measured at age 3 (GR1065X), 5 (GR1075) and 9 (le14).
 # Once a risk, always a risk strategy:
-postnatal_stress$marital_status <- repmeas(postnatal_stress[,c('marital_status_3yrs','marital_status_5yrs','le14')])
+postnatal_stress$marital_status <- repmeas(postnatal_stress[,c('marital_status_3yrs','marital_status_5yrs','divorce_childhood')])
 
 # Family size was measured at age 3 (GR1065G), 5 (GR1075B) and 9 (GR1081)
 # Once a risk, always a risk strategy:
@@ -500,11 +501,11 @@ for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotom
 # 51 indicators). NOTE: this is a little less straightforward compared to the prenatal 
 # score, so to be safe, I will list all the indicator names. 
 postnatal_stress$post_percent_missing = apply(postnatal_stress[,c(
-  'le1','le2','le3','le4','le5','le6','le7','rep_grade','le17','le23','le24','friend_moved','fire_burglary', # LE
-  'tension_at_work','material_deprivation','financial_difficulties_childhood','le9','trouble_pay','income_once','income_chronic','unemployed_once','unemployed_chronic', # CR
+  'sick_or_accident','family_member_ill','smbd_important_ill','parent_died','smbd_important_died','pet_died','school_workload','repeated_grade','lost_smth_important','moved','changed_school','friend_moved','fire_or_burglary', # LE
+  'tension_at_work','material_deprivation','financial_difficulties','neiborhood_problems','trouble_pay_childhood','income_once','income_chronic','unemployed_once','unemployed_chronic', # CR
   'm_education','p_education','m_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
-  'marital_problems','marital_status','family_size','m_fad_5yrs','m_fad_9yrs','p_fad_9yrs','le11','le12','le13','le14','le16', # IR
-  'm_harsh_parent','p_harsh_parent','bullying','le18','le19','le20','le21','le22')], # DV
+  'marital_problems','marital_status','family_size','m_fad_5yrs','m_fad_9yrs','p_fad_9yrs','conflict_family_member','conflict_smbd_else','conflict_in_family','divorce_childhood','argument_friend', # IR
+  'm_harsh_parent','p_harsh_parent','bullying','physical_violence','physical_threats','sexual_harrasment','sexual_behavior','rumors_or_gossip')], # DV
                                              1, percent_missing)
 
 #-------------------------------------------------------------------------------
@@ -522,28 +523,28 @@ postnatal_stress$post_percent_missing = apply(postnatal_stress[,c(
 
 # LE
 postnatal_stress[,c('post_LE_percent_missing','post_life_events')] <- domainscore(postnatal_stress[,c(
-  'le1', # Did your child get seriously sick or did he/she have an accident? Yes
-  'le2', # Did a family member get seriously sick or a serious accident? Yes
-  'le3', # Did somebody else, who is important to your child, get seriously sick or have a serious accident? Yes
-  'le4', # Is the father/mother or other caretaker still alive? No 
-  'le5', # Did somebody else, who your child cared about a lot, die? Yes
-  'le6', # Did ever a pet, who you child cared about a lot, die? Yes
-  'le7', # Does or did your child have to deal with a high workload at school? Yes
-  'rep_grade', # Did your child ever repeat a grade? Yes
-  'le17', # Did your child ever lose something which was important to him/her? Yes
-  'le23', # Did your child move? Yes 
-  'le24', # Did your child change schools? Yes
+  'sick_or_accident', # Did your child get seriously sick or did he/she have an accident? Yes
+  'family_member_ill', # Did a family member get seriously sick or a serious accident? Yes
+  'smbd_important_ill', # Did somebody else, who is important to your child, get seriously sick or have a serious accident? Yes
+  'parent_died', # Is the father/mother or other caretaker still alive? No 
+  'smbd_important_died', # Did somebody else, who your child cared about a lot, die? Yes
+  'pet_died', # Did ever a pet, who you child cared about a lot, die? Yes
+  'school_workload', # Does or did your child have to deal with a high workload at school? Yes
+  'repeated_grade', # Did your child ever repeat a grade? Yes
+  'lost_smth_important', # Did your child ever lose something which was important to him/her? Yes
+  'moved', # Did your child move? Yes 
+  'changed_school', # Did your child change schools? Yes
   'friend_moved', # Did one of your child’s friends move to a new house? Yes
-  'fire_burglary' # Was there a fire or burglary? Yes 
+  'fire_or_burglary' # Was there a fire or burglary? Yes 
   )])
 
 # CR
 postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domainscore(postnatal_stress[,c(
   'tension_at_work', # Tension at the parents’ work that has been felt at home; yes
   'material_deprivation', # Material deprivation; yes
-  'financial_difficulties_childhood', # Does your family have or ever had financial difficulties? Yes 
-  'le9', # Are/were there problems in the neighborhood? (e.g. vandalism or insecurity); yes
-  'trouble_pay', # Trouble paying for your food, rent, electricity bill and such in the past year? Yes
+  'financial_difficulties', # Does your family have or ever had financial difficulties? Yes 
+  'neiborhood_problems', # Are/were there problems in the neighborhood? (e.g. vandalism or insecurity); yes
+  'trouble_pay_childhood', # Trouble paying for your food, rent, electricity bill and such in the past year? Yes
   'income_once', # Income household; < 1600 euros p/m; once 
   'income_chronic', # Income household; < 1600 euros p/m; chronically
   'unemployed_once', # Unemployment within the family, once
@@ -552,16 +553,16 @@ postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domain
 
 # PR
 postnatal_stress[,c('post_PR_percent_missing','post_parental_risk')] <- domainscore(postnatal_stress[,c(
-  'm_education', # Education main caregiver; < phase 2 (higher) secondary education, once 
-  'p_education', # Education partner; < phase 2 (higher) secondary education , once
-  'm_interpersonal_sensitivity', # Interpersonal sensitivity main caregiver; > 0.95
-  'p_interpersonal_sensitivity', # Interpersonal sensitivity partner; > 0.78
-  'm_depression', # Depression main caregiver; > 0.80
-  'p_depression', # Depression partner; > 0.71
-  'm_anxiety', # Anxiety main caregiver; > 0.71
-  'p_anxiety', # Anxiety partner; > 0.65
-  'm_age', # Early parenthood; age mother <19 yrs
-  'p_age' # Early parenthood; age partner <19 yrs
+  'm_education', # Education main caregiver; < phase 1 (higher) education, once 
+  'p_education', # Education partner; < phase 1 (higher) education , once
+  'm_interpersonal_sensitivity', # Interpersonal sensitivity main caregiver; >= 0.95
+  'p_interpersonal_sensitivity', # Interpersonal sensitivity partner; >= 0.78
+  'm_depression', # Depression main caregiver; >= 0.80
+  'p_depression', # Depression partner; >= 0.71
+  'm_anxiety', # Anxiety main caregiver; >= 0.71
+  'p_anxiety', # Anxiety partner; >= 0.65
+  'm_age', # Early parenthood; age mother < 19 yrs
+  'p_age' # Early parenthood; age partner < 19 yrs
   )])
 
 # IR
@@ -572,11 +573,11 @@ postnatal_stress[,c('post_IR_percent_missing','post_interpersonal_risk')] <- dom
   'm_fad_5yrs', # Family distress according to main caregiver; > 2.17
   'm_fad_9yrs', # Family distress according to main caregiver; > 2.17
   'p_fad_9yrs', # Family distress according to partner; > 2.17
-  'le11', # Has your child ongoing conflicts with a family member (or ever had them)? Yes
-  'le12', # Has your child ongoing conflict with somebody else (or ever had them)? Yes 
-  'le13', # Do other family members have ongoing conflicts with each other (or ever had them)? Yes
-  'le14', # Are you and your partner divorced or separated? Yes
-  'le16' # Did your child lose a good friend due to an argument? Yes
+  'conflict_family_member', # Has your child ongoing conflicts with a family member (or ever had them)? Yes
+  'conflict_smbd_else', # Has your child ongoing conflict with somebody else (or ever had them)? Yes 
+  'conflict_in_family', # Do other family members have ongoing conflicts with each other (or ever had them)? Yes
+  'divorce_childhood', # Are you and your partner divorced or separated? Yes
+  'argument_friend' # Did your child lose a good friend due to an argument? Yes
 )])
 
 # DV
@@ -584,11 +585,11 @@ postnatal_stress[,c('post_DV_percent_missing','post_direct_victimization')] <- d
   'm_harsh_parent', # Harsh parenting main caregiver > 80th percentile
   'p_harsh_parent', # Harsh parenting partner > 80th percentile
   'bullying', # Bullying more than once a week according to teacher or main caregiver; yes
-  'le18', # Did someone ever use physical violence against your child? For example, beating him/her up. Yes
-  'le19', # Did somebody use almost physical violence against your child? So that it did not actually happen, but the child was frightened. Yes
-  'le20', # Did anybody make sexual comments or movements towards your child? Yes 
-  'le21', # Did your child participate in inappropriate sexual behavior? Yes
-  'le22' # Did somebody spread mean rumors or gossip about your child? Yes
+  'physical_violence', # Did someone ever use physical violence against your child? For example, beating him/her up. Yes
+  'physical_threats', # Did somebody use almost physical violence against your child? So that it did not actually happen, but the child was frightened. Yes
+  'sexual_harrasment', # Did anybody make sexual comments or movements towards your child? Yes 
+  'sexual_behavior', # Did your child participate in inappropriate sexual behavior? Yes
+  'rumors_or_gossip' # Did somebody spread mean rumors or gossip about your child? Yes
   )])
 
 
