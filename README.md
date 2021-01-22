@@ -14,6 +14,22 @@ Cumulative scores, similar to this one are widely used in developmental psycholo
 ## Shortcomings (and patches!) of using this score
 As his fellow additive indices, this one also has quite a few shortcomings. Importantly, for example, risk is inevitably designated with some degree of *arbitrariness*, and dichotomization into risk or no risk was not always a straightforward decision. Because we are aware of how problematic this may be for replicability, we tried to list as meticulously as possible the decisions that were taken and the rationale under each one of them. Note also that information on *risk intensity* is lost, together with the possibility of statistical interactions between risk factors.
 
+## Score overview
+![alt text](imgs/Overview.png)
+
+## Prenatal stress items
+![alt text](imgs/preLE.png)
+![alt text](imgs/preCR.png)
+![alt text](imgs/prePR.png)
+![alt text](imgs/preIR.png)
+
+## Postnatal stress items
+![alt text](imgs/postLE.png)
+![alt text](imgs/postCR.png)
+![alt text](imgs/postPR.png)
+![alt text](imgs/postIR.png)
+![alt text](imgs/postDV.png)
+
 ## Prediction of negative health outcomes, what do we know so far
 A similar version of the score has been used to predict cognitive develpment ... multimorbidity between internalizing problems and cardio-metabolic risk in children 
 
