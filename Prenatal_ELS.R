@@ -283,11 +283,14 @@ prenatal_stress <- merge(child_id, prenatal_stress, by = 'IDM', all.x = T)
 #------------------------------------------------------------------------------#
 
 # Let's have a look at risk distribution and missing data per indicator.
-prenatal_summary = data.frame(row.names=c("no risk","risk","NA"))
+prenatal_summary = data.frame(row.names=c("no risk","risk","NA","%risk","%miss"))
 for (i in 3:ncol(prenatal_stress)) { # ATTENTION, if not merged with child_id, count from 2.
   s = summary(as.factor(prenatal_stress[,i]))
   c = colnames(prenatal_stress)[i]
-  prenatal_summary[,c] <- s }
+  prenatal_summary[1:3,c] <- s
+  prenatal_summary[4,c] <- round((prenatal_summary[2,c] / 9901)*100, 2)
+  prenatal_summary[5,c] <- round((prenatal_summary[3,c] / 9901)*100, 2)
+  }
 
 #-------------------------------------------------------------------------------
 # Apply the percent_missing function to the rows (1) of the entire dataset (total

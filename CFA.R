@@ -1,4 +1,13 @@
-# load the lavaan package
+
+# Hi there, 
+# the following code meant to explore the ELS score we have created in previous scripts
+# (i.e. Prenatal_ELS.R and Postnatal_ELS.R). We are going to look at the correlation
+# matrix and the pattern of missingness. We are then going to run a Confermatory Factor
+# Analysis (CFA), as well as an Exploratory Factor Analysis (EFA) on the dataset 
+# after imputation that was performed following this script:
+# https://github.com/SereDef/association-ELS-PCM-project/Imputation.R
+
+# load necessary packages
 library(lavaan)
 library(psych)
 
@@ -8,8 +17,12 @@ if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to dat
 # ------------------------------------------------------------------------------
 
 ################################################################################
-############################  PRENATAL ELS SCORE  ##############################
+####################################  CFA  #####################################
 ################################################################################
+
+# -----------------------------------------------------------------------------#
+#---------------------------- PRENATAL ELS SCORE  -----------------------------#
+# -----------------------------------------------------------------------------#
 
 # Load dataset (created using the Prenatal_ELS.R script)
 pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds'))
@@ -60,11 +73,9 @@ summary(pre_CR_fit, fit.measures=TRUE, standardized=TRUE)
 summary(pre_PS_fit, fit.measures=TRUE, standardized=TRUE)
 summary(pre_IS_fit, fit.measures=TRUE, standardized=TRUE)
 
-# ------------------------------------------------------------------------------
-
-################################################################################
-###########################  POSTNATAL ELS SCORE  ##############################
-################################################################################
+# -----------------------------------------------------------------------------#
+#--------------------------- POSTNATAL ELS SCORE  -----------------------------#
+# -----------------------------------------------------------------------------#
 
 # Load dataset (created using the Postnatal_ELS.R script)
 post_risk <- readRDS(paste(pathtodata, 'postnatal_stress.rds'))
@@ -115,12 +126,15 @@ summary(post_IR_fit, fit.measures=TRUE, standardized=TRUE)
 summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 
 # ------------------------------------------------------------------------------
-# Quick Exploratory Factor Analysis
-# AFTER IMPUTATION 
+
+################################################################################
+####################################  EFA  #####################################
+################################################################################
+
+# Quick Exploratory Factor Analysis ### AFTER IMPUTATION ###
 
 datarisk <- readRDS(paste(pathtodata, 'ELS_PCM_imputed.rds'))
-pre = datarisk[2:45]
-post = datarisk[46:96]
+pre = datarisk[2:45]; post = datarisk[46:96];
 
 prefact = factanal(pre, factors = 4, rotation = 'promax')
 print(prefact, cutoff = .3)
@@ -130,3 +144,5 @@ print(postfact, cutoff = .3)
 
 psych::scree(pre)
 psych::scree(post)
+
+# ------------------------------------------------------------------------------

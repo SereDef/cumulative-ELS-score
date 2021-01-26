@@ -411,7 +411,7 @@ postnatal_stress <- merge(postnatal_stress, early_parent, by = 'IDM', all = T)
 
 # Repeating a grade was measured by maternal report at age 8 (GR1080), 9 (le8) 
 # and 10 (GR1082). # Once a risk, always a risk strategy:
-postnatal_stress$rep_grade <- repmeas(postnatal_stress[,c('rep_grade_8yrs','rep_grade_9yrs','rep_grade_10yrs')])
+postnatal_stress$repeated_grade <- repmeas(postnatal_stress[,c('rep_grade_8yrs','rep_grade_9yrs','rep_grade_10yrs')])
 
 # Financial difficulties were measured at age 3 (GR1065) and 9 (le10). 
 # Once a risk, always a risk strategy:
@@ -486,15 +486,18 @@ postnatal_stress$bullying <- repmeas(postnatal_stress[,c('bully_physical_m','bul
 #------------------------------------------------------------------------------#
 
 # Let's have a look at risk distribution and missing data per indicator.
-postnatal_summary = data.frame(row.names=c("no risk","risk","NA"))
+postnatal_summary = data.frame(row.names=c("no risk","risk","NA","%risk","%miss"))
 for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotomous (BSI_age)
   s = summary(as.factor(postnatal_stress[,i]))
-  if (length(s) < 3) { # I am doing this ugly thing as a quick&dirty fix for lack of risk in fam_size_9yrs
+  if (length(s) < 3) { # I am doing this ugly thing as a quick & dirty fix for lack of risk in fam_size_9yrs
     s = c(s[1], 0, s[2])
     names(s)[2] = "1"
   }
   c = colnames(postnatal_stress)[i]
-  postnatal_summary[,c] <- s }
+  postnatal_summary[1:3,c] <- s 
+  postnatal_summary[4,c] <- round((postnatal_summary[2,c] / 9901)*100, 2)
+  postnatal_summary[5,c] <- round((postnatal_summary[3,c] / 9901)*100, 2)
+}
 
 #-------------------------------------------------------------------------------
 # Apply the percent_missing function to the rows (1) of the entire dataset (total

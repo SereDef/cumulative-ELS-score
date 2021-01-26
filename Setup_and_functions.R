@@ -2,7 +2,8 @@
 library(foreign)
 library(car)
 
-pathtodata <- readline(prompt="Enter path to data: ")  # -> CUSTOMIZE TO APPROPRIATE PATH
+# check if the path to the data is already in memory, otherwise ask for it. 
+if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to data: ") } # -> CUSTOMIZE TO APPROPRIATE PATH
 # The code assumes that all raw data is stored in ONE folder.
 
 if (substr(pathtodata, 1, 1) == "") {
