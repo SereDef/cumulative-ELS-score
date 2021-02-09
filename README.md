@@ -18,14 +18,17 @@ As his fellow additive indices, this one also has quite a few shortcomings. Impo
 ![alt text](imgs/overview.png)
 Some items are mirrowed in prenatal and postnatal corresponding domains, but some are more period-specific. Here is an overview: 
 ![alt text](imgs/overlap.png)
+Let's take a look at the correlation matrix of the whole score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations. 
+![alt text](imgs/matrixels.png)
 
-## Prenatal stress items
+
+## Prenatal stress: raw items and prevalence
 ![alt text](imgs/preLE.png)
 ![alt text](imgs/preCR.png)
 ![alt text](imgs/prePR.png)
 ![alt text](imgs/preIR.png)
 
-## Postnatal stress items
+## Postnatal stress: raw items and prevalence
 ![alt text](imgs/postLE.png)
 ![alt text](imgs/postCR.png)
 ![alt text](imgs/postPR.png)
