@@ -25,7 +25,7 @@ if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to dat
 # -----------------------------------------------------------------------------#
 
 # Load dataset (created using the Prenatal_ELS.R script)
-pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds'))
+pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds', sep=""))
 
 # ------------------------------------------------------------------------------
 # specify the models
@@ -40,16 +40,16 @@ pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds'))
 # IS # interpersonal_stress =~ difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
 
 prenatal_LE.model <- ' 
-life_events =~ family_member_died + friend_relative_died + family_member_ill_pregnancy + admitted_to_hospital + health + unemployed + work_study_problems + moved_house + blood_loss + examination + baby_worried + pregnancy_worried + obstetric_care + pregnancy_planned + victim_robbery '
+life_events =~ NA*family_member_died + friend_relative_died + family_member_ill_pregnancy + admitted_to_hospital + health + unemployed + work_study_problems + moved_house + blood_loss + examination + baby_worried + pregnancy_worried + obstetric_care + pregnancy_planned + victim_robbery '
 
 prenatal_CR.model <- ' 
-contextual_risk =~ financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living '
+contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living '
 
 prenatal_PS.model <- ' 
-personal_stress =~ early_pregnancy + m_psychopathology + m_violence_people + m_violence_property + m_criminal_record + m_education_pregnancy '
+personal_stress =~ NA*early_pregnancy + m_psychopathology + m_violence_people + m_violence_property + m_criminal_record + m_education_pregnancy '
 
 prenatal_IS.model <- ' 
-interpersonal_stress =~ difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
+interpersonal_stress =~ NA*difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
 
 # ------------------------------------------------------------------------------
 # fit the models
@@ -60,10 +60,10 @@ interpersonal_stress =~ difficulties_contacts + difficulties_partner + difficult
 # { verbose = T, to see whether anything is computed and if not, where it gets stuck
 # { ordered = ... }
 
-pre_LE_fit <- cfa(prenatal_LE.model, data=pre_risk) 
-pre_CR_fit <- cfa(prenatal_CR.model, data=pre_risk)
-pre_PS_fit <- cfa(prenatal_PS.model, data=pre_risk)
-pre_IS_fit <- cfa(prenatal_IS.model, data=pre_risk)
+pre_LE_fit <- cfa(prenatal_LE.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE) 
+pre_CR_fit <- cfa(prenatal_CR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
+pre_PS_fit <- cfa(prenatal_PS.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
+pre_IS_fit <- cfa(prenatal_IS.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
 
 # ------------------------------------------------------------------------------
 # display summary output
@@ -78,7 +78,7 @@ summary(pre_IS_fit, fit.measures=TRUE, standardized=TRUE)
 # -----------------------------------------------------------------------------#
 
 # Load dataset (created using the Postnatal_ELS.R script)
-post_risk <- readRDS(paste(pathtodata, 'postnatal_stress.rds'))
+post_risk <- readRDS(paste(pathtodata, 'postnatal_stress.rds', sep = ""))
 
 # ------------------------------------------------------------------------------
 # specify the models
@@ -91,29 +91,29 @@ post_risk <- readRDS(paste(pathtodata, 'postnatal_stress.rds'))
 # DV # direct_victimization =~ m_harsh_parent + p_harsh_parent + bullying + physical_violence + physical_threats + sexual_harrasment + sexual_behavior + rumors_or_gossip '
 
 postnatal_LE.model <- '
-life_events =~ sick_or_accident + family_member_ill + smbd_important_ill + parent_died + smbd_important_died + pet_died + school_workload + repeated_grade + lost_smth_important + moved + changed_school + friend_moved + fire_or_burglary '
+life_events =~ NA*sick_or_accident + family_member_ill + smbd_important_ill + parent_died + smbd_important_died + pet_died + school_workload + repeated_grade + lost_smth_important + moved + changed_school + friend_moved + fire_or_burglary '
 
 postnatal_CR.model <- ' 
-contextual_risk =~ tension_at_work + material_deprivation + financial_difficulties + neiborhood_problems + trouble_pay_childhood + income_once + income_chronic + unemployed_once + unemployed_chronic '
+contextual_risk =~ NA*tension_at_work + material_deprivation + financial_difficulties + neiborhood_problems + trouble_pay_childhood + income_once + income_chronic + unemployed_once + unemployed_chronic '
 
 postnatal_PR.model <- ' 
-parental_risk =~ m_education + p_education + m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
+parental_risk =~ NA*m_education + p_education + m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
 
 postnatal_IR.model <- ' 
-interpersonal_risk =~ marital_problems + marital_status + family_size + m_fad_5yrs + m_fad_9yrs + p_fad_9yrs + conflict_family_member + conflict_smbd_else + conflict_in_family + divorce_childhood + argument_friend '
+interpersonal_risk =~ NA*marital_problems + marital_status + family_size + m_fad_5yrs + m_fad_9yrs + p_fad_9yrs + conflict_family_member + conflict_smbd_else + conflict_in_family + divorce_childhood + argument_friend '
 
 postnatal_DV.model <- ' 
-direct_victimization =~ m_harsh_parent + p_harsh_parent + bullying + physical_violence + physical_threats + sexual_harrasment + sexual_behavior + rumors_or_gossip '
+direct_victimization =~ NA*m_harsh_parent + p_harsh_parent + bullying + physical_violence + physical_threats + sexual_harrasment + sexual_behavior + rumors_or_gossip '
 
 # ------------------------------------------------------------------------------
 # fit the models
 # post_fit <- cfa(postnatal.model, data=post_risk)
 
-post_LE_fit <- cfa(postnatal_LE.model, data=post_risk)
-post_CR_fit <- cfa(postnatal_CR.model, data=post_risk)
-post_PR_fit <- cfa(postnatal_PR.model, data=post_risk)
-post_IR_fit <- cfa(postnatal_IR.model, data=post_risk)
-post_DV_fit <- cfa(postnatal_DV.model, data=post_risk)
+post_LE_fit <- cfa(postnatal_LE.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
+post_CR_fit <- cfa(postnatal_CR.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
+post_PR_fit <- cfa(postnatal_PR.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
+post_IR_fit <- cfa(postnatal_IR.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
+post_DV_fit <- cfa(postnatal_DV.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
 
 # ------------------------------------------------------------------------------
 # display summary output
@@ -133,14 +133,14 @@ summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 
 # Quick Exploratory Factor Analysis ### AFTER IMPUTATION ###
 
-datarisk <- readRDS(paste(pathtodata, 'ELS_PCM_imputed.rds'))
+datarisk <- readRDS(paste(pathtodata, 'ELS_PCM_imputed.rds', sep = ""))
 pre = datarisk[2:45]; post = datarisk[46:96];
 
 prefact = factanal(pre, factors = 4, rotation = 'promax')
-print(prefact, cutoff = .3)
+print(prefact, cutoff = .25)
 
 postfact = factanal(post, factors = 5, rotation = 'promax')
-print(postfact, cutoff = .3)
+print(postfact, cutoff = .25)
 
 psych::scree(pre)
 psych::scree(post)

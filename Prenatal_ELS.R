@@ -374,6 +374,6 @@ prenatal_stress[,c('pre_IS_percent_missing','pre_interpersonal_stress')] <- doma
 ################################################################################
 
 # Save the dataset in an .rds file, in the directory where you have the raw data
-saveRDS(prenatal_stress, paste(pathtodata,'prenatal_stress.rds'))
-saveRDS(prenatal_summary, paste(pathtodata,'prenatal_stress_summary.rds'))
+saveRDS(prenatal_stress, paste(pathtodata,'prenatal_stress.rds', sep = ""))
+saveRDS(prenatal_summary, paste(pathtodata,'prenatal_stress_summary.rds', sep = ""))
 

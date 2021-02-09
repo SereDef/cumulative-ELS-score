@@ -601,6 +601,6 @@ postnatal_stress[,c('post_DV_percent_missing','post_direct_victimization')] <- d
 ################################################################################
 
 # Save the dataset in an .rds file, in the directory where the raw data are stored
-saveRDS(postnatal_stress, paste(pathtodata,'postnatal_stress.rds'))
-saveRDS(postnatal_summary, paste(pathtodata,'postnatal_stress_summary.rds'))
+saveRDS(postnatal_stress, paste(pathtodata,'postnatal_stress.rds', sep = ""))
+saveRDS(postnatal_summary, paste(pathtodata,'postnatal_stress_summary.rds', sep = ""))
 
