@@ -36,7 +36,9 @@ Let's take a look at the correlation matrix of the whole score. The black and bl
 ![alt text](imgs/postDV.png)
 
 ## Prediction of negative health outcomes, what do we know so far
-A similar version of the score has been used to predict cognitive develpment ... multimorbidity between internalizing problems and cardio-metabolic risk in children 
+Similar versions of the score have been succesfully used to predict later mismatch between cognitive abilities (i.e. IQ) and accademic achievement (Schuurmans, in preparation), internalizing problems and cardio-metablic health in 10 years old children. 
+Exposure to prenatal ELS was examined in relation to DNA methylation (DNAm) at birth, as a proxy of stable epigenetic changes (Rijlaarsdam et al., 2016). We did not find a robust assocaitions. However, we are furthr examining whether prental ELS in interaction with genetic predisposition may have better explainatory power over DNAm patterns. 
+Note that a paralel version of the postnatal ELS score, spanning from birth to 6 years of age, was created in Generation R and is being examined in relation to internalizing and externalizing behavior (moderated by temperament and executive functioning; de Maat et al, in preparation) and problem behavior (measured with the Berkeley puppet interview) ()
 
 ## Decision dictionary: item inclusion / exclusion and dichotomization stratergies 
 Manual reference ...
