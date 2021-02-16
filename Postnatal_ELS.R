@@ -186,7 +186,7 @@ GR1075E <- data.frame(GR1075v1E$idc,
 colnames(GR1075E) <- c("IDC", "m_empl_5yrs", "p_empl_5yrs")
 
 #-------------------------------------------------------------------------------
-## GR1079 (5-8 yrs) - bullying assessed by teacher
+## GR1079 (7 yrs) - bullying assessed by teacher
 GR1079v1 <- readquick("20141027_TRFteacherCleaned.sav") # 7580 obs. of  336
 
 # Construct GR1079 # used in DV score 
