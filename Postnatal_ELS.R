@@ -181,8 +181,8 @@ GR1075v1E <- readquick("PARENTEMPLOYMENT5_13082012.sav") # 9901 obs. of  7
 GR1075E <- data.frame(GR1075v1E$idc, 
                       ifelse(GR1075v1E$b0500175_clean <= 3, yes = 0, no = 1), # mother occupation
                       ifelse(GR1075v1E$b1200175_clean<= 3, yes = 0, no = 1)) # father occupation
-                             # DICH: unemployed if described themselves other than ‘paid worker’ 
-                             # or ‘self-employed’ (e.g. 'student')
+                             # DICH: unemployed if described themselves other than ‘paid worker’ or ‘self-employed’ 
+                             # (e.g. 'student', 'welfare recipient', 'disabled', 'volunteer work' = risk)
 colnames(GR1075E) <- c("IDC", "m_empl_5yrs", "p_empl_5yrs")
 
 #-------------------------------------------------------------------------------
