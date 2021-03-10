@@ -10,6 +10,7 @@
 # load necessary packages
 library(lavaan)
 library(psych)
+library(tibble)
 
 # check if the path to the data is already in memory, otherwise ask for it. 
 if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to data: ") }
@@ -43,10 +44,10 @@ prenatal_LE.model <- '
 life_events =~ NA*family_member_died + friend_relative_died + family_member_ill_pregnancy + admitted_to_hospital + health + unemployed + work_study_problems + moved_house + blood_loss + examination + baby_worried + pregnancy_worried + obstetric_care + pregnancy_planned + victim_robbery '
 
 prenatal_CR.model <- ' 
-contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living '
+contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living + m_education_pregnancy '
 
 prenatal_PS.model <- ' 
-personal_stress =~ NA*early_pregnancy + m_psychopathology + m_violence_people + m_violence_property + m_criminal_record + m_education_pregnancy '
+personal_stress =~ NA*early_pregnancy + m_depression_pregnancy + m_anxiety_pregnancy + m_interp_sensitivity_pregnancy + m_violence_people + m_violence_property + m_criminal_record '
 
 prenatal_IS.model <- ' 
 interpersonal_stress =~ NA*difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
@@ -94,10 +95,10 @@ postnatal_LE.model <- '
 life_events =~ NA*sick_or_accident + family_member_ill + smbd_important_ill + parent_died + smbd_important_died + pet_died + school_workload + repeated_grade + lost_smth_important + moved + changed_school + friend_moved + fire_or_burglary '
 
 postnatal_CR.model <- ' 
-contextual_risk =~ NA*tension_at_work + material_deprivation + financial_difficulties + neiborhood_problems + trouble_pay_childhood + income_once + income_chronic + unemployed_once + unemployed_chronic '
+contextual_risk =~ NA*tension_at_work + material_deprivation + financial_difficulties + neiborhood_problems + trouble_pay_childhood + income_once + income_chronic + unemployed_once + unemployed_chronic + m_education + p_education '
 
 postnatal_PR.model <- ' 
-parental_risk =~ NA*m_education + p_education + m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
+parental_risk =~ NA*m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
 
 postnatal_IR.model <- ' 
 interpersonal_risk =~ NA*marital_problems + marital_status + family_size + m_fad_5yrs + m_fad_9yrs + p_fad_9yrs + conflict_family_member + conflict_smbd_else + conflict_in_family + divorce_childhood + argument_friend '
@@ -133,8 +134,14 @@ summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 
 # Quick Exploratory Factor Analysis ### AFTER IMPUTATION ###
 
+# Load the imputed dataset
 datarisk <- readRDS(paste(pathtodata, 'ELS_PCM_imputed.rds', sep = ""))
-pre = datarisk[2:45]; post = datarisk[46:96];
+
+# Divide the dataset into prenatal and postnatal items
+pre = datarisk[2:which(colnames(datarisk) == 'family_size_pregnancy')] # first column is IDC
+pre = add_column(pre, datarisk$m_age, .before = 'm_psychopathology'); # add the maternal age variable to the prenatal set 
+
+post = datarisk[which(colnames(datarisk) == 'sick_or_accident'):which(colnames(datarisk) == 'rumors_or_gossip')];
 
 prefact = factanal(pre, factors = 4, rotation = 'promax')
 print(prefact, cutoff = .25)

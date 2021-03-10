@@ -505,8 +505,8 @@ for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotom
 # score, so to be safe, I will list all the indicator names. 
 postnatal_stress$post_percent_missing = apply(postnatal_stress[,c(
   'sick_or_accident','family_member_ill','smbd_important_ill','parent_died','smbd_important_died','pet_died','school_workload','repeated_grade','lost_smth_important','moved','changed_school','friend_moved','fire_or_burglary', # LE
-  'tension_at_work','material_deprivation','financial_difficulties','neiborhood_problems','trouble_pay_childhood','income_once','income_chronic','unemployed_once','unemployed_chronic', # CR
-  'm_education','p_education','m_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
+  'tension_at_work','material_deprivation','financial_difficulties','neiborhood_problems','trouble_pay_childhood','income_once','income_chronic','unemployed_once','unemployed_chronic','m_education','p_education', # CR
+  'm_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
   'marital_problems','marital_status','family_size','m_fad_5yrs','m_fad_9yrs','p_fad_9yrs','conflict_family_member','conflict_smbd_else','conflict_in_family','divorce_childhood','argument_friend', # IR
   'm_harsh_parent','p_harsh_parent','bullying','physical_violence','physical_threats','sexual_harrasment','sexual_behavior','rumors_or_gossip')], # DV
                                              1, percent_missing)
@@ -551,13 +551,12 @@ postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domain
   'income_once', # Income household; < 1600 euros p/m; once 
   'income_chronic', # Income household; < 1600 euros p/m; chronically
   'unemployed_once', # Unemployment within the family, once
-  'unemployed_chronic' # Unemployment within the family, chronically
-  )])
+  'unemployed_chronic', # Unemployment within the family, chronically
+  'm_education', # Education main caregiver; < phase 1 (higher) education, once 
+  'p_education')]) # Education partner; < phase 1 (higher) education , once
 
 # PR
 postnatal_stress[,c('post_PR_percent_missing','post_parental_risk')] <- domainscore(postnatal_stress[,c(
-  'm_education', # Education main caregiver; < phase 1 (higher) education, once 
-  'p_education', # Education partner; < phase 1 (higher) education , once
   'm_interpersonal_sensitivity', # Interpersonal sensitivity main caregiver; >= 0.95
   'p_interpersonal_sensitivity', # Interpersonal sensitivity partner; >= 0.78
   'm_depression', # Depression main caregiver; >= 0.80

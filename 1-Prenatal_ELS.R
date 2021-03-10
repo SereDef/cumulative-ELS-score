@@ -165,10 +165,12 @@ colnames(GR1003J) <- c("IDM","family_affection","family_decisions_problems","fam
 GR1003dep <- readquick("GR1003-BSI D1_22112016.sav") # 9778 obs of 261 vars
 
 GR1003BSI <- data.frame(GR1003dep$idm, 
-                        ifelse(GR1003dep$gsi >= 0.71, yes = 1, no = 0)) # Global Sensitivity index, for PS
+                        ifelse(GR1003dep$dep >= 0.80, yes = 1, no = 0), # depression for PS
+                        ifelse(GR1003dep$anx >= 0.71, yes = 1, no = 0), # anxiety for PS
+                        ifelse(GR1003dep$i_s >= 0.95, yes = 1, no = 0)) # interpersonal sensitivity for PS
                         # DICH: cut-off for maternal psychopathology in as provided 
                         # in addendum to the BSI manual (De Beurs, 2009).
-colnames(GR1003BSI) <- c("IDM","m_psychopathology")
+colnames(GR1003BSI) <- c("IDM","m_depression_pregnancy", "m_anxiety_pregnancy", "m_interp_sensitivity_pregnancy")
 
 # GSI- father # this was in Isabel script but it is not used in the score.
 # GR1004dep <- readquick("GR1004-BSI G1_22112016.sav") # 9778 obs of 261 
@@ -252,7 +254,7 @@ demogr <- data.frame(fetal_general$idm,
                      ifelse(fetal_general$age_m_v2 < 19, yes = 1, no = 0), # Mother younger than 19 years at intake (for PS)
                      # DICH: based on Cecil et al. (2014); Rijlaarsdam et al. (2016).
                      fetal_general$mardich, # marital status: "No partner" (for IS)
-                     ifelse(fetal_general$educm <= 3, yes = 1, no = 0)) # Highest education finished (for PS)
+                     ifelse(fetal_general$educm <= 3, yes = 1, no = 0)) # Highest education finished (for CR)
                      # DICH: "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
                      # based on Centraal Bureau voor de Statistiek (2016). 
 colnames(demogr) <- c("IDM","early_pregnancy","marital_status_pregnancy","m_education_pregnancy")
@@ -336,17 +338,18 @@ prenatal_stress[,c('pre_CR_percent_missing','pre_contextual_risk')] <- domainsco
   "income_reduced", # Downturn in financial situation in the last 12 months? YES
   "housing_defects", # Often had problems with cold or draft in your home |OR| misted windows in your sitting room |OR| damp patches, mold on the wall, furniture in the last year? YES
   "housing_adequacy", # Have you had housing problems in the past year? "Slight"/"Moderate"/"Serious" = risk. "No" = no risk.
-  "housing_basic_living")]) # Possession of adequate heating in your home in cold weather |OR| a washing machine |OR| a refrigerator
+  "housing_basic_living", # Possession of adequate heating in your home in cold weather |OR| a washing machine |OR| a refrigerator
+  "m_education_pregnancy")]) # Highest education finished "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
 
 # PS
 prenatal_stress[,c('pre_PS_percent_missing','pre_personal_stress')] <- domainscore(prenatal_stress[,c(
   "early_pregnancy", # Mother younger than 19 years at intake. 
-  "m_psychopathology", # Global Sensitivity index >= 0.71 (De Beurs, 2009).
+  "m_depression_pregnancy", # BSI depression score > 0.80 (De Beurs, 2009).
+  "m_anxiety_pregnancy", # BSI anxiety score > 0.71 (De Beurs, 2009).
+  "m_interp_sensitivity_pregnancy", # BSI interpersonal sensitivity score > 0.95 (De Beurs, 2009).
   "m_violence_people", # Threatened anyone |OR| Hit anyone so hard that he or she was injured |OR| Injured anyone with a knife or weapon in the past two years ("Once"/"2-3 times"/"4-5 times"/"more than 6 times")
   "m_violence_property", # Deliberately damaged or vandalised |OR| Damaged property of another person in the past two years ("Once" or "2-3 times").
-  "m_criminal_record", # Do you have a criminal record? YES
-  "m_education_pregnancy")]) # Highest education finished "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
-
+  "m_criminal_record")]) # Do you have a criminal record? YES
 
 # IS
 prenatal_stress[,c('pre_IS_percent_missing','pre_interpersonal_stress')] <- domainscore(prenatal_stress[,c(
