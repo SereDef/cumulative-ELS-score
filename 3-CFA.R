@@ -95,10 +95,10 @@ postnatal_LE.model <- '
 life_events =~ NA*sick_or_accident + family_member_ill + smbd_important_ill + parent_died + smbd_important_died + pet_died + school_workload + repeated_grade + lost_smth_important + moved + changed_school + friend_moved + fire_or_burglary '
 
 postnatal_CR.model <- ' 
-contextual_risk =~ NA*tension_at_work + material_deprivation + financial_difficulties + neiborhood_problems + trouble_pay_childhood + income_once + income_chronic + unemployed_once + unemployed_chronic + m_education + p_education '
+contextual_risk =~ NA*material_deprivation + financial_difficulties + neiborhood_problems + trouble_pay_childhood + income_once + income_chronic + unemployed_once + unemployed_chronic + m_education + p_education '
 
 postnatal_PR.model <- ' 
-parental_risk =~ NA*m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
+parental_risk =~ NA*tension_at_work + m_interpersonal_sensitivity + p_interpersonal_sensitivity + m_depression + p_depression + m_anxiety + p_anxiety + m_age + p_age '
 
 postnatal_IR.model <- ' 
 interpersonal_risk =~ NA*marital_problems + marital_status + family_size + m_fad_5yrs + m_fad_9yrs + p_fad_9yrs + conflict_family_member + conflict_smbd_else + conflict_in_family + divorce_childhood + argument_friend '

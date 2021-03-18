@@ -9,7 +9,7 @@
 # First, let's point to the necessary libraries and define all the functions that 
 # are going to be used: readquick, percent_missing, repmeas, domainscore, 
 # bsi_scores & fad_scores.
-source("Setup_and_functions.R") 
+source("0-Setup_and_functions.R") 
 
 # ATTENTION!!! You will be prompted with an "Enter path to data:" message 
 # -> Enter the location of your datafiles. The code assumes that all (raw) data is 
@@ -505,8 +505,8 @@ for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotom
 # score, so to be safe, I will list all the indicator names. 
 postnatal_stress$post_percent_missing = apply(postnatal_stress[,c(
   'sick_or_accident','family_member_ill','smbd_important_ill','parent_died','smbd_important_died','pet_died','school_workload','repeated_grade','lost_smth_important','moved','changed_school','friend_moved','fire_or_burglary', # LE
-  'tension_at_work','material_deprivation','financial_difficulties','neiborhood_problems','trouble_pay_childhood','income_once','income_chronic','unemployed_once','unemployed_chronic','m_education','p_education', # CR
-  'm_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
+  'material_deprivation','financial_difficulties','neiborhood_problems','trouble_pay_childhood','income_once','income_chronic','unemployed_once','unemployed_chronic','m_education','p_education', # CR
+  'tension_at_work','m_interpersonal_sensitivity','p_interpersonal_sensitivity','m_depression','p_depression','m_anxiety','p_anxiety','m_age','p_age', # PR
   'marital_problems','marital_status','family_size','m_fad_5yrs','m_fad_9yrs','p_fad_9yrs','conflict_family_member','conflict_smbd_else','conflict_in_family','divorce_childhood','argument_friend', # IR
   'm_harsh_parent','p_harsh_parent','bullying','physical_violence','physical_threats','sexual_harrasment','sexual_behavior','rumors_or_gossip')], # DV
                                              1, percent_missing)
@@ -543,7 +543,6 @@ postnatal_stress[,c('post_LE_percent_missing','post_life_events')] <- domainscor
 
 # CR
 postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domainscore(postnatal_stress[,c(
-  'tension_at_work', # Tension at the parents’ work that has been felt at home; yes
   'material_deprivation', # Material deprivation; yes
   'financial_difficulties', # Does your family have or ever had financial difficulties? Yes 
   'neiborhood_problems', # Are/were there problems in the neighborhood? (e.g. vandalism or insecurity); yes
@@ -557,6 +556,7 @@ postnatal_stress[,c('post_CR_percent_missing','post_contextual_risk')] <- domain
 
 # PR
 postnatal_stress[,c('post_PR_percent_missing','post_parental_risk')] <- domainscore(postnatal_stress[,c(
+  'tension_at_work', # Tension at the parents’ work that has been felt at home; yes
   'm_interpersonal_sensitivity', # Interpersonal sensitivity main caregiver; >= 0.95
   'p_interpersonal_sensitivity', # Interpersonal sensitivity partner; >= 0.78
   'm_depression', # Depression main caregiver; >= 0.80
