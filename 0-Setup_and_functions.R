@@ -61,7 +61,7 @@ bsi_scores <- function(items, threshold=length(items)-1, filledinby, cutoff, per
 # dichotomizes the scores according to the cutoff for unhealthy family functioning 
 # provided by the manual (Byles et al., 1988), = 2.17. 
 fad_scores <- function(set){
-  fadtotal <- rowSums(set) # Sum items
+  fadtotal <- rowSums(abs(set)) # Sum items
   no_na_fad <- rowSums(!is.na(set)) # Number of endorsed items
   # Compute mean score + do not calculate when more than 25% of items are missing
   fad_score <- ifelse(no_na_fad >= 9, yes = fadtotal/no_na_fad, no = NA) 
