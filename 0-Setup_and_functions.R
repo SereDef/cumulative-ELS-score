@@ -53,7 +53,7 @@ bsi_scores <- function(items, threshold=length(items)-1, filledinby, cutoff, per
         dich_score[i] = ifelse(cont_score[i] >= cutoff[filledinby[i]], yes = 1, no = 0) }
     }
   }
-  return(as.data.frame(dich_score))
+  return(dich_score)
 }
 #-------------------------------------------------------------------------------
 # General functioning of the family was measured with the family assessment device (FAD).
@@ -105,13 +105,13 @@ repmeas <- function(items, strategy = 'oncealways'){
 #-------------------------------------------------------------------------------
 # Domain scores measure how many adversities are reported. This function returns 
 # the domain risk score and the percentage of missing values within the domain. 
-# Default score_type is the mean nr of adversities (ranging from 0 to 1), that is
-# NOT adjusted for number of missing values, so whenever a domain is not complete, 
-# the domain score is NA. This missing value needs to be accounted for by multiple 
-# imputation. However, the function can also provide a cumulative number of adversities 
-# (set score_type = 'sum_simple') or a weighted sum score that allows for 25% missing
-# like the one used in Rijlaarsdam et al. (2016) and Cecil et al. (2014) (set 
-# score_type = 'sum_weighted')
+# Default score_type is the mean nr of adversities (ranging from 0 to 1), that is 
+# calculated whenever a domain is at least 75% complete, otherwise the domain score 
+# is NA. This missing value needs to be accounted for by multiple imputation. 
+# However, the function can also provide a cumulative number of adversities 
+# (set score_type = 'sum_simple') or a weighted sum score like the one used in 
+# Rijlaarsdam et al. (2016) and Cecil et al. (2014) (set score_type = 'sum_weighted')
+# that both also allow for 25% missing.
 
 # calculate the domain scores
 domainscore <- function(df, score_type = 'mean_simple'){
@@ -129,9 +129,9 @@ domainscore <- function(df, score_type = 'mean_simple'){
   domain_miss = apply(df, 1, percent_missing)
   # calculate the domain score
   if (score_type == 'mean_simple') { 
-    score <- rowMeans(df, na.rm = F) 
+    score <- ifelse(domain_miss >= 25, NA, rowMeans(df, na.rm = T) )
   } else if (score_type == 'sum_simple') {
-    score <- rowSums(df, na.rm = F)
+    score <- ifelse(domain_miss >= 25, NA, rowSums(df, na.rm = T) )
   } else if (score_type == 'sum_weighted') { 
     score <- ifelse(domain_miss >= 25, NA, 
              rowSums(df, na.rm = T) * length(df)/(length(df) - rowSums(is.na(df)))) 

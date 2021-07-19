@@ -46,11 +46,11 @@ life_events =~ NA*family_member_died + friend_relative_died + family_member_ill_
 prenatal_CR.model <- ' 
 contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living + m_education_pregnancy '
 
-prenatal_PS.model <- ' 
-personal_stress =~ NA*early_pregnancy + m_depression_pregnancy + m_anxiety_pregnancy + m_interp_sensitivity_pregnancy + m_violence_people + m_violence_property + m_criminal_record '
+prenatal_PR.model <- ' 
+parental_risk =~ NA*early_pregnancy + m_depression_pregnancy + m_anxiety_pregnancy + m_interp_sensitivity_pregnancy + p_depression_pregnancy + p_anxiety_pregnancy + p_interp_sensitivity_pregnancy + m_violence_people + m_violence_property + m_criminal_record '
 
-prenatal_IS.model <- ' 
-interpersonal_stress =~ NA*difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
+prenatal_IR.model <- ' 
+interpersonal_risk =~ NA*difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
 
 # ------------------------------------------------------------------------------
 # fit the models
@@ -63,16 +63,16 @@ interpersonal_stress =~ NA*difficulties_contacts + difficulties_partner + diffic
 
 pre_LE_fit <- cfa(prenatal_LE.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE) 
 pre_CR_fit <- cfa(prenatal_CR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
-pre_PS_fit <- cfa(prenatal_PS.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
-pre_IS_fit <- cfa(prenatal_IS.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
+pre_PR_fit <- cfa(prenatal_PR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
+pre_IR_fit <- cfa(prenatal_IR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
 
 # ------------------------------------------------------------------------------
 # display summary output
 # summary(pre_fit, fit.measures=TRUE)
 summary(pre_LE_fit, fit.measures=TRUE, standardized=TRUE)
 summary(pre_CR_fit, fit.measures=TRUE, standardized=TRUE)
-summary(pre_PS_fit, fit.measures=TRUE, standardized=TRUE)
-summary(pre_IS_fit, fit.measures=TRUE, standardized=TRUE)
+summary(pre_PR_fit, fit.measures=TRUE, standardized=TRUE)
+summary(pre_IR_fit, fit.measures=TRUE, standardized=TRUE)
 
 # -----------------------------------------------------------------------------#
 #--------------------------- POSTNATAL ELS SCORE  -----------------------------#
@@ -135,7 +135,7 @@ summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 # Quick Exploratory Factor Analysis ### AFTER IMPUTATION ###
 
 # Load the imputed dataset
-datarisk <- readRDS(paste(pathtodata, 'ELS_PCM_imputed.rds', sep = ""))
+datarisk <- readRDS(paste(pathtodata, 'ELSPCM_imputed.rds', sep = ""))
 
 # Divide the dataset into prenatal and postnatal items
 pre = datarisk[2:which(colnames(datarisk) == 'family_size_pregnancy')] # first column is IDC
