@@ -9,7 +9,7 @@
 # First, let's point to the necessary libraries and define all the functions that 
 # are going to be used: readquick, percent_missing, domainscore (also repmeas, 
 # bsi_scores, fad_scores that are used in addition in the postnatal stress script)
-source("0-Setup_and_functions.R")
+ source("0-Setup_and_functions.R")
 
 # ATTENTION! You will be prompted with an "Enter path to data:" message 
 # -> Enter the location of your datafiles. The code assumes that all (raw) data is 
@@ -205,7 +205,12 @@ GR1003G <- data.frame('IDM' = GR1003v1G$idm,
   # DICH: "Once"/"2-3 times"/"4-5 times"/"more than 6 times" = risk. "Never" = no risk.
 
 # Paternal variables are NOT USED IN THIS SCORE but can be integrated provided 
-# GR1004v1I<- readquick("GR1004-I_01072012.sav")
+GR1004v1I <- readquick("GR1004-I_01072012.sav")
+# Construct GR1003G
+GR1004I <- data.frame('IDM' = GR1004v1I$idm, 
+        'p_criminal_record' = ifelse(GR1004v1I$i0300104 == 1 | GR1004v1I$i0200104 == 1, 1, 
+                                     ifelse(GR1004v1I$i0300104 == 0 & GR1004v1I$i0200104 == 0, 0, NA)))
+         # Do you have a criminal record? | Have you ever been arrested by the police? YES # PR
 
 #-------------------------------------------------------------------------------
 GR1005v1A<- readquick("GR1005-A_22112016.sav") # 9778 obs of 17 vars
@@ -255,10 +260,9 @@ demogr <- data.frame('IDM' = fetal_general$idm,
 # This function merges together all separate dataframes according to the IDM 
 # results in a dataframe with all relevant items for prenatal stress.
 # tech-tip: because merge can only take two dataframes at the time and I am lazy, I use Reduce.
-prenatal_stress <- Reduce(function(x,y) merge(x = x, y = y, by = 'IDM',  all.x = TRUE),
+prenatal_stress <- Reduce(function(x,y) merge(x = x, y = y, by = 'IDM',  all.x = T),
                           list(GR1001A, GR1001H, GR1003A, GR1003A8, GR1003C, GR1003J, 
-                               GR1003BSI, GR1004BSI, GR1003G, GR1005A, GR1005E, demogr)) 
-                   # remember to add GR1004I if you use it. 
+                               GR1003BSI, GR1004BSI, GR1003G, GR1004I, GR1005A, GR1005E, demogr)) 
 
 #-------------------------------------------------------------------------------
 # In order to later merge the dataset with postnatal variables, I link the pregnancy
@@ -338,7 +342,8 @@ prenatal_stress[,c('pre_PR_percent_missing','pre_parental_risk')] <- domainscore
   "p_interp_sensitivity_pregnancy", # BSI interpersonal sensitivity score > 0.71 (De Beurs, 2009).
   "m_violence_people", # Threatened anyone |OR| Hit anyone so hard that he or she was injured |OR| Injured anyone with a knife or weapon in the past two years ("Once"/"2-3 times"/"4-5 times"/"more than 6 times")
   "m_violence_property", # Deliberately damaged or vandalised |OR| Damaged property of another person in the past two years ("Once" or "2-3 times").
-  "m_criminal_record")]) # Do you have a criminal record? YES
+  "m_criminal_record", # Do you have a criminal record? YES
+  "p_criminal_record")]) # Do you have a criminal record? | Have you ever been arrested by the police? YES # PR
 
 # IR
 prenatal_stress[,c('pre_IR_percent_missing','pre_interpersonal_risk')] <- domainscore(prenatal_stress[,c(
