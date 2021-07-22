@@ -37,14 +37,14 @@ pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds', sep=""))
 # prenatal.model <- ' 
 # LE # life_events =~ family_member_died + friend_relative_died + family_member_ill_pregnancy + admitted_to_hospital + health + unemployed + work_study_problems + moved_house + blood_loss + examination + baby_worried + pregnancy_worried + obstetric_care + pregnancy_planned + victim_robbery
 # CR # contextual_risk =~ financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living
-# PS # personal_stress =~ early_pregnancy + m_psychopathology + m_violence_people + m_violence_property + m_criminal_record + m_education_pregnancy
+# PS # personal_stress =~ early_pregnancy + m_psychopathology + m_violence_people + m_violence_property + m_criminal_record + m_education_pregnancy + p_education_pregnancy
 # IS # interpersonal_stress =~ difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
 
 prenatal_LE.model <- ' 
 life_events =~ NA*family_member_died + friend_relative_died + family_member_ill_pregnancy + admitted_to_hospital + health + unemployed + work_study_problems + moved_house + blood_loss + examination + baby_worried + pregnancy_worried + obstetric_care + pregnancy_planned + victim_robbery '
 
 prenatal_CR.model <- ' 
-contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living + m_education_pregnancy '
+contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living + m_education_pregnancy + p_education_pregnancy '
 
 prenatal_PR.model <- ' 
 parental_risk =~ NA*early_pregnancy + m_depression_pregnancy + m_anxiety_pregnancy + m_interp_sensitivity_pregnancy + p_depression_pregnancy + p_anxiety_pregnancy + p_interp_sensitivity_pregnancy + m_violence_people + m_violence_property + m_criminal_record + p_criminal_record'

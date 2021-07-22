@@ -9,7 +9,7 @@
 # First, let's point to the necessary libraries and define all the functions that 
 # are going to be used: readquick, percent_missing, domainscore (also repmeas, 
 # bsi_scores, fad_scores that are used in addition in the postnatal stress script)
- source("0-Setup_and_functions.R")
+source("0-Setup_and_functions.R")
 
 # ATTENTION! You will be prompted with an "Enter path to data:" message 
 # -> Enter the location of your datafiles. The code assumes that all (raw) data is 
@@ -252,7 +252,8 @@ demogr <- data.frame('IDM' = fetal_general$idm,
   # Mother younger than 19 years at intake (for PR)
   # DICH: based on Cecil et al. (2014); Rijlaarsdam et al. (2016).
 'marital_status_pregnancy' = fetal_general$mardich, # Marital status: "No partner" (for IR)
-   'm_education_pregnancy' = ifelse(fetal_general$educm <= 3, yes = 1, no = 0)) # Highest education finished (for CR)
+   'm_education_pregnancy' = ifelse(fetal_general$educm <= 3, yes = 1, no = 0), # Highest education finished mother (for CR)
+   'p_education_pregnancy' = ifelse(fetal_general$educp <= 3, yes = 1, no = 0)) # Highest education finished partner (for CR)
   # DICH: "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
   # based on Centraal Bureau voor de Statistiek (2016). 
 
@@ -329,7 +330,8 @@ prenatal_stress[,c('pre_CR_percent_missing','pre_contextual_risk')] <- domainsco
   "housing_defects", # Often had problems with cold or draft in your home |OR| misted windows in your sitting room |OR| damp patches, mold on the wall, furniture in the last year? YES
   "housing_adequacy", # Have you had housing problems in the past year? "Slight"/"Moderate"/"Serious" = risk. "No" = no risk.
   "housing_basic_living", # Possession of adequate heating in your home in cold weather |OR| a washing machine |OR| a refrigerator
-  "m_education_pregnancy")]) # Highest education finished "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
+  "m_education_pregnancy", # Highest education finished "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
+  "p_education_pregnancy")]) # Highest education finished "No education"/"Primary"/"Secondary-phase 1"/"Secondary-phase 2" = risk. "Higher-phase 1"/"Higher-phase 2" = no risk.
 
 # PR
 prenatal_stress[,c('pre_PR_percent_missing','pre_parental_risk')] <- domainscore(prenatal_stress[,c(
