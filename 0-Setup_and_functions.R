@@ -86,21 +86,17 @@ repmeas <- function(items, strategy = 'oncealways'){
   # making sure all repeated measures are binary variables
   for (i in 1:ncol(x)){
     if (range(x[,i], na.rm = T)[1] == 1 & range(x[,i], na.rm = T)[2] == 2){
-      x[,i] <- x[,i] - 1}
-    else {
-      if ( (range(x[,i], na.rm = T)[1] != 0 | range(x[,i], na.rm = T)[2] != 1) & ( range(x[,i], na.rm = T)[1] != range(x[,i], na.rm = T)[2] ) ) { 
-        stop('Items are not dichotomized')}
-    } 
-  }
+      x[,i] <- x[,i] - 1 
+      } else if ( (range(x[,i], na.rm = T)[1] != 0 | range(x[,i], na.rm = T)[2] != 1) 
+              & ( range(x[,i], na.rm = T)[1] != range(x[,i], na.rm = T)[2] ) ) { 
+        stop('Items are not dichotomized') }
+  } 
+  temp <- rowMeans(x, na.rm = T) 
   # combine and dichotomize the repeated measures
-  if (strategy == 'oncealways') { 
-    temp <- rowMeans(x, na.rm=T) 
-    temp[temp > 0] <- 1 
-    return(temp)}
-  if (strategy == 'chronic') { 
-    temp <- rowMeans(x, na.rm=T) 
-    temp[temp < 1] <- 0 
-    return(temp)}
+  if (strategy == 'oncealways') {  temp[temp > 0] <- 1 
+  } else if (strategy == 'chronic') { temp[temp < 1] <- 0 }
+  
+  return(temp)
 }
 #-------------------------------------------------------------------------------
 # Domain scores measure how many adversities are reported. This function returns 

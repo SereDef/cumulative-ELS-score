@@ -465,8 +465,8 @@ for (i in 3:ncol(postnatal_stress)) { # because the third column is not dichotom
   }
   c = colnames(postnatal_stress)[i]
   postnatal_summary[1:3,c] <- s 
-  postnatal_summary[4,c] <- round((postnatal_summary[2,c] / 9901)*100, 2)
-  postnatal_summary[5,c] <- round((postnatal_summary[3,c] / 9901)*100, 2)
+  postnatal_summary[4,c] <- round((postnatal_summary[2,c] / nrow(postnatal_stress))*100, 2)
+  postnatal_summary[5,c] <- round((postnatal_summary[3,c] / nrow(postnatal_stress))*100, 2)
 }
 
 #-------------------------------------------------------------------------------
