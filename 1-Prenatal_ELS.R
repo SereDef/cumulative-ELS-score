@@ -369,6 +369,15 @@ prenatal_stress[,c('pre_IR_percent_missing','pre_interpersonal_risk')] <- domain
   "family_size_pregnancy")]) # With how many people does the pregnant woman live? >3 people = risk. <= 3 people = no risk.
 
 ################################################################################
+# Set all binary variables to class: factor
+nonbinary_cols <- c("IDC", "IDM", "pre_percent_missing", "pre_LE_percent_missing", "pre_life_events",           
+                    "pre_CR_percent_missing", "pre_contextual_risk", "pre_PR_percent_missing", "pre_parental_risk",      
+                    "pre_IR_percent_missing", "pre_interpersonal_risk")
+
+prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols] <- 
+  lapply(prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols], factor) 
+
+################################################################################
 #### --------------------------- save and run ----------------------------- ####
 ################################################################################
 

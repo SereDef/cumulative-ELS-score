@@ -96,6 +96,8 @@ repmeas <- function(items, strategy = 'oncealways'){
   if (strategy == 'oncealways') {  temp[temp > 0] <- 1 
   } else if (strategy == 'chronic') { temp[temp < 1] <- 0 }
   
+  temp[is.nan(temp)] <- NA
+  
   return(temp)
 }
 #-------------------------------------------------------------------------------
