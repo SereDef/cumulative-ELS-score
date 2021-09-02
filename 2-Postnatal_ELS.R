@@ -566,12 +566,12 @@ postnatal_stress[,c('post_DV_percent_missing','post_direct_victimization')] <- d
 
 ################################################################################
 # Set all binary variables to class: factor
-nonbinary_cols <- c("IDC", "IDM", "post_percent_missing", "post_LE_percent_missing", "post_life_events",           
-                    "post_CR_percent_missing", "post_contextual_risk", "post_PR_percent_missing", "post_parental_risk",      
-                    "post_IR_percent_missing", "post_interpersonal_risk", "post_DV_percent_missing", "post_direct_victimization")
-
-postnatal_stress[!names(postnatal_stress) %in% nonbinary_cols] <- 
-  lapply(postnatal_stress[!names(postnatal_stress) %in% nonbinary_cols], factor) 
+# nonbinary_cols <- c("IDC", "IDM", "post_percent_missing", "post_LE_percent_missing", "post_life_events",           
+#                     "post_CR_percent_missing", "post_contextual_risk", "post_PR_percent_missing", "post_parental_risk",      
+#                     "post_IR_percent_missing", "post_interpersonal_risk", "post_DV_percent_missing", "post_direct_victimization")
+# 
+# postnatal_stress[!names(postnatal_stress) %in% nonbinary_cols] <- 
+#   lapply(postnatal_stress[!names(postnatal_stress) %in% nonbinary_cols], factor) 
 
 ################################################################################
 #### --------------------------- save and run ----------------------------- ####

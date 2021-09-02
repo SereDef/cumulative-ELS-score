@@ -370,12 +370,12 @@ prenatal_stress[,c('pre_IR_percent_missing','pre_interpersonal_risk')] <- domain
 
 ################################################################################
 # Set all binary variables to class: factor
-nonbinary_cols <- c("IDC", "IDM", "pre_percent_missing", "pre_LE_percent_missing", "pre_life_events",           
-                    "pre_CR_percent_missing", "pre_contextual_risk", "pre_PR_percent_missing", "pre_parental_risk",      
-                    "pre_IR_percent_missing", "pre_interpersonal_risk")
-
-prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols] <- 
-  lapply(prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols], factor) 
+# nonbinary_cols <- c("IDC", "IDM", "pre_percent_missing", "pre_LE_percent_missing", "pre_life_events",           
+#                     "pre_CR_percent_missing", "pre_contextual_risk", "pre_PR_percent_missing", "pre_parental_risk",      
+#                     "pre_IR_percent_missing", "pre_interpersonal_risk")
+# 
+# prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols] <- 
+#   lapply(prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols], factor) 
 
 ################################################################################
 #### --------------------------- save and run ----------------------------- ####
