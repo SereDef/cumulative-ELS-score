@@ -15,16 +15,13 @@ Cumulative scores, similar to this one are widely used in developmental psycholo
 As his fellow additive indices, this one also has quite a few shortcomings. Importantly, for example, risk is inevitably designated with some degree of *arbitrariness*, and dichotomization into risk or no risk was not always a straightforward decision. Because we are aware of how problematic this may be for replicability, we tried to list as meticulously as possible the decisions that were taken and the rationale under each one of them. Note also that information on *risk intensity* is lost, together with the possibility of statistical interactions between risk factors.
 
 ## Score overview
-#### Generation R
+Generation R
 ![alt text](imgs/overviewR.png)
-#### ALSPAC
+ALSPAC
 ![alt text](imgs/overviewA.png)
 
 Some items are mirrowed in prenatal and postnatal corresponding domains, but some are more period-specific. Here is an overview of the item overlap between periods for the two cohorts: 
-#### Generation R
-![alt text](imgs/overlapR.png)
-#### ALSPAC
-![alt text](imgs/overlapA.png)
+![alt-text-1](imgs/overlapR.png, "Generatio R") ![alt-text-2](imgs/overlapA.png, "ALSPAC")
 
 Let's take a look at the correlation patterns underlying the score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations. 
 ![alt text](imgs/matrixels.png)
@@ -49,7 +46,13 @@ Exposure to prenatal ELS was examined in relation to DNA methylation (DNAm) at b
 Note that a paralel version of the postnatal ELS score, spanning from birth to 6 years of age, was created in Generation R and is being examined in relation to internalizing and externalizing behavior (moderated by temperament and executive functioning; de Maat et al, in preparation) and problem behavior (measured with the Berkeley puppet interview) ()
 
 ## Decision dictionary: item inclusion / exclusion and dichotomization stratergies 
-Manual references...
-[...]
+Summary of key references for variable collapsing strategies:
+* Material deprivation: EU-SILC
+* Income & education: CBS
+* BSI & FAD: manual 
+* Early parenthood, marital status and family size: Cecil et al. (2014), Cortes Hidalgo et al (2018) & Rijlaarsdam (2016) 
+* Harsh parenting: Jansen et al.(2012)
+* Bullying: Muetzel et al (2019) 
+
 The score is designed to be a comprehensive measure of exposure to *psycho-social* stressors. However, early stress factors that are more biological in nature (e.g. maternal smoking or alcohol consumption, pollution) are left out of the score. 
 
