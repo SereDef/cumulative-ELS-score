@@ -22,7 +22,7 @@ ALSPAC:
 
 Some items are mirrowed in prenatal and postnatal corresponding domains, but some are more period-specific. Here is an overview of the item overlap between periods for the two cohorts: 
 
-<img src="imgs/overlapR.png" height="265"/> <img src="imgs/overlapA.png" height="265"/> 
+<img src="imgs/overlapR.png" height="250"/> <img src="imgs/overlapA.png" height="250"/> 
 
 Let's take a look at the correlation patterns underlying the score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations. 
 ![alt text](imgs/matrixels.png)
