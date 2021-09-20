@@ -9,7 +9,7 @@
 # First, let's point to the necessary libraries and define all the functions that 
 # are going to be used: readquick, percent_missing, domainscore (also repmeas, 
 # bsi_scores, fad_scores that are used in addition in the postnatal stress script)
-source("0-Setup_and_functions.R")
+source("GENR.0-Setup_and_functions.R")
 
 # ATTENTION! You will be prompted with an "Enter path to data:" message 
 # -> Enter the location of your datafiles. The code assumes that all (raw) data is 
