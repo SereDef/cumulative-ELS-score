@@ -4,7 +4,7 @@ Here you can find a set of scripts for building a **cumulative psycho-social ris
 
 Prenatal and postnatal ELS scores are composed of five cumulative (additive) risk domains: **Life events** (e.g. death of a parent or pregnancy complications), **contextual risk** (e.g. financial difficulties or neighbourhood problems), **parental risk** (e.g. parental criminal record or parental depression) and **interpersonal risk** (e.g. family conflicts or loss of a friend) and ***direct victimization*** (only available postnatally, e.g. bullying or harsh parenting). Each domain is constructed by dichotomizing the belonging risk factors (0 = no risk; 1 = risk) and then summing the dichotomous scores.
 
-These scores are based on Generation R (https://generationr.nl/) and ALSPAC (http://www.bristol.ac.uk/alspac/) data on (from pregnancy to 7-10 years of age). They have been originally conceived and used by Cecil et al., 2014; Rijlaarsdam et al., 2016; and Schuurmans (in preparation). All indicators were harmonized across Generation R and ALSPAC cohorts with respect to closest item-similarity. 
+These scores are based on Generation R (https://generationr.nl/) and ALSPAC (http://www.bristol.ac.uk/alspac/) data on (from pregnancy to 10 years of age). They have been originally conceived and used by Cecil et al., 2014; Rijlaarsdam et al., 2016; and Schuurmans (in preparation). All indicators were harmonized across Generation R and ALSPAC cohorts with respect to closest item-similarity. 
 
 Keep reading if you want to find out more about this score. We will try to outline advantages and disadvantages of using it, the outcomes that have already been related (or not) to it, and track and trace the decision process behind every step of it's construction. If something is unclear, or if you can spot any mistake, please contact me. Any input is very welcome! 
 
@@ -15,10 +15,18 @@ Cumulative scores, similar to this one are widely used in developmental psycholo
 As his fellow additive indices, this one also has quite a few shortcomings. Importantly, for example, risk is inevitably designated with some degree of *arbitrariness*, and dichotomization into risk or no risk was not always a straightforward decision. Because we are aware of how problematic this may be for replicability, we tried to list as meticulously as possible the decisions that were taken and the rationale under each one of them. Note also that information on *risk intensity* is lost, together with the possibility of statistical interactions between risk factors.
 
 ## Score overview
-![alt text](imgs/overview.png)
-Some items are mirrowed in prenatal and postnatal corresponding domains, but some are more period-specific. Here is an overview: 
-![alt text](imgs/overlap.png)
-Let's take a look at the correlation matrix of the whole score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations. 
+#### Generation R
+![alt text](imgs/overviewR.png)
+#### ALSPAC
+![alt text](imgs/overviewA.png)
+
+Some items are mirrowed in prenatal and postnatal corresponding domains, but some are more period-specific. Here is an overview of the item overlap between periods for the two cohorts: 
+#### Generation R
+![alt text](imgs/overlapR.png)
+#### ALSPAC
+![alt text](imgs/overlapA.png)
+
+Let's take a look at the correlation patterns underlying the score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations. 
 ![alt text](imgs/matrixels.png)
 
 
@@ -41,4 +49,7 @@ Exposure to prenatal ELS was examined in relation to DNA methylation (DNAm) at b
 Note that a paralel version of the postnatal ELS score, spanning from birth to 6 years of age, was created in Generation R and is being examined in relation to internalizing and externalizing behavior (moderated by temperament and executive functioning; de Maat et al, in preparation) and problem behavior (measured with the Berkeley puppet interview) ()
 
 ## Decision dictionary: item inclusion / exclusion and dichotomization stratergies 
-Manual reference ...
+Manual references...
+[...]
+The score is designed to be a comprehensive measure of exposure to *psycho-social* stressors. However, early stress factors that are more biological in nature (e.g. maternal smoking or alcohol consumption, pollution) are left out of the score. 
+
