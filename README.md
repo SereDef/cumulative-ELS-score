@@ -47,6 +47,8 @@ Exposure to prenatal ELS was examined in relation to DNA methylation (DNAm) at b
 Note that a paralel version of the postnatal ELS score, spanning from birth to 6 years of age, was created in Generation R and is being examined in relation to internalizing and externalizing behavior (moderated by temperament and executive functioning; de Maat et al, in preparation) and problem behavior (measured with the Berkeley puppet interview) ()
 
 ## Decision dictionary: item inclusion / exclusion and dichotomization stratergies 
+The score is designed to be a comprehensive measure of exposure to *psycho-social* stressors. However, early stress factors that are more biological in nature (e.g. maternal smoking or alcohol consumption, pollution) are left out of the score. 
+
 Summary of key references for variable collapsing strategies:
 * Material deprivation: EU-SILC
 * Income & education: CBS
@@ -55,5 +57,5 @@ Summary of key references for variable collapsing strategies:
 * Harsh parenting: Jansen et al.(2012)
 * Bullying: Muetzel et al (2019) 
 
-The score is designed to be a comprehensive measure of exposure to *psycho-social* stressors. However, early stress factors that are more biological in nature (e.g. maternal smoking or alcohol consumption, pollution) are left out of the score. 
-
+## Imputation stratergy
+For details please see the sister repo: https://github.com/SereDef/association-ELS-PCM-project
