@@ -11,13 +11,12 @@
 # bsi_scores, fad_scores that are used in addition in the postnatal stress script)
 source("GENR.0-Setup_and_functions.R")
 
-# ATTENTION! You will be prompted with an "Enter path to data:" message 
-# -> Enter the location of your datafiles. The code assumes that all (raw) data is 
-# stored in ONE folder. Do not forget the final slash in your path, and, speaking of slashes, 
-# beware of OS sensitive changes when you want to modify the structure of your dirs!
+# ATTENTION! You will be prompted with a window, please navigate to the directory
+# where the input data files are stored. Choose any file in the directory to continue.
+# Note: the code assumes that all (raw) data is stored in ONE folder. 
 
 # For this version of the score
-# You will need the following files (or updated versions from datamanagemet)
+# You will need the following files (or updated versions from data.managemet)
 # GR1001-A_22112016.sav; GR1001-H_22112016.sav; GR1003-A1-7_02092013.sav; GR1003-A8-11_02092013.sav;
 # GR1003-C_08042016.sav; GR1003-Family Assessment Device J1-J12_22112016.sav; GR1003-G_01072012.sav;
 # GR1003-BSI D1_22112016.sav; GR1005-A_22112016.sav; GR1005-E_22112016.sav
@@ -377,11 +376,22 @@ prenatal_stress[,c('pre_IR_percent_missing','pre_interpersonal_risk')] <- domain
 # prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols] <- 
 #   lapply(prenatal_stress[!names(prenatal_stress) %in% nonbinary_cols], factor) 
 
+
+################################################################################
+#### -------------- Construct CUMULATIVE STRESS variables ----------------- ####
+################################################################################
+
+# compute sum scores for prenatal stress exposure
+prenatal_stress$prenatal_stress <- rowSums(prenatal_stress[,c("pre_life_events", 
+                                                              "pre_contextual_risk", 
+                                                              "pre_parental_risk", 
+                                                              "pre_interpersonal_risk")], na.rm = F)
+
 ################################################################################
 #### --------------------------- save and run ----------------------------- ####
 ################################################################################
 
 # Save the dataset in an .rds file, in the directory where you have the raw data
-saveRDS(prenatal_stress, paste0(pathtodata,'prenatal_stress.rds'))
-saveRDS(prenatal_summary, paste0(pathtodata,'prenatal_stress_summary.rds'))
+saveRDS(prenatal_stress, file.path(pathtoresults,'prenatal_stress.rds'))
+saveRDS(prenatal_summary, file.path(pathtoresults,'prenatal_stress_summary.rds'))
 

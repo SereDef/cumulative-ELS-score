@@ -11,10 +11,9 @@
 # bsi_scores & fad_scores.
 source("GENR.0-Setup_and_functions.R") 
 
-# ATTENTION! You will be prompted with an "Enter path to data:" message 
-# -> Enter the location of your datafiles. The code assumes that all (raw) data is 
-# stored in ONE folder. Do not forget the final slash in your path, and, speaking of slashes, 
-# beware of OS sensitive changes when you want to modify the structure of your dirs!
+# ATTENTION! You will be prompted with a window, please navigate to the directory
+# where the input data files are stored. Choose any file in the directory to continue.
+# Note: the code assumes that all (raw) data is stored in ONE folder. 
 
 # For this version of the score
 # You will need the following files (or updated versions from data.managemet)
@@ -574,10 +573,21 @@ postnatal_stress[,c('post_DV_percent_missing','post_direct_victimization')] <- d
 #   lapply(postnatal_stress[!names(postnatal_stress) %in% nonbinary_cols], factor) 
 
 ################################################################################
+#### -------------- Construct CUMULATIVE STRESS variables ----------------- ####
+################################################################################
+
+# compute sum scores for postnatal stress exposure
+postnatal_stress$postnatal_stress <- rowSums(postnatal_stress[,c("post_life_events", 
+                                                                 "post_contextual_risk", 
+                                                                 "post_parental_risk", 
+                                                                 "post_interpersonal_risk", 
+                                                                 "post_direct_victimization")], na.rm = F)
+
+################################################################################
 #### --------------------------- save and run ----------------------------- ####
 ################################################################################
 
 # Save the dataset in an .rds file, in the directory where the raw data are stored
-saveRDS(postnatal_stress, paste(pathtodata,'postnatal_stress.rds', sep = ""))
-saveRDS(postnatal_summary, paste(pathtodata,'postnatal_stress_summary.rds', sep = ""))
+saveRDS(postnatal_stress, file.path(pathtoresults,'postnatal_stress.rds'))
+saveRDS(postnatal_summary, file.path(pathtoresults,'postnatal_stress_summary.rds'))
 

@@ -7,13 +7,12 @@
 # after imputation that was performed following this script:
 # https://github.com/SereDef/association-ELS-PCM-project/Imputation.R
 
-# load necessary packages
-library(lavaan)
-library(psych)
-library(tibble)
+# extra packages
+extras <- c('lavaan', 'psych', 'tibble')
+lapply(extras, require, character.only = T);
 
 # check if the path to the data is already in memory, otherwise ask for it. 
-if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to data: ") }
+if (exists("pathtoresults") == F) { pathtoresults = readline(prompt="Enter path to results: ") }
 
 # ------------------------------------------------------------------------------
 
@@ -26,7 +25,7 @@ if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to dat
 # -----------------------------------------------------------------------------#
 
 # Load dataset (created using the Prenatal_ELS.R script)
-pre_risk <- readRDS(paste(pathtodata, 'prenatal_stress.rds', sep=""))
+pre_risk <- readRDS(paste(pathtoresults, 'prenatal_stress.rds', sep=""))
 
 # ------------------------------------------------------------------------------
 # specify the models
@@ -79,7 +78,7 @@ summary(pre_IR_fit, fit.measures=TRUE, standardized=TRUE)
 # -----------------------------------------------------------------------------#
 
 # Load dataset (created using the Postnatal_ELS.R script)
-post_risk <- readRDS(paste(pathtodata, 'postnatal_stress.rds', sep = ""))
+post_risk <- readRDS(paste(pathtoresults, 'postnatal_stress.rds', sep = ""))
 
 # ------------------------------------------------------------------------------
 # specify the models
@@ -135,7 +134,7 @@ summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 # Quick Exploratory Factor Analysis ### AFTER IMPUTATION ###
 
 # Load the imputed dataset
-datarisk <- readRDS(paste(pathtodata, 'ELSPCM_imputed.rds', sep = ""))
+datarisk <- readRDS(paste(pathtoresults, 'ELSPCM_imputed.rds', sep = ""))
 
 # Divide the dataset into prenatal and postnatal items
 pre = datarisk[2:which(colnames(datarisk) == 'family_size_pregnancy')] # first column is IDC

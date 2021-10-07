@@ -1,23 +1,33 @@
-# Point to the necessary libraries
-library(foreign)
-library(car)
+
+# Load required packages
+utilis <- c('car', 'foreign')
+lapply(utilis, require, character.only = T);
 
 # check if the path to the data is already in memory, otherwise ask for it. 
-if (exists("pathtodata") == F) { pathtodata = readline(prompt="Enter path to data: ") } # -> CUSTOMIZE TO APPROPRIATE PATH
-# The code assumes that all raw data is stored in ONE folder.
-
-if (substr(pathtodata, 1, 1) == "") {
-  cat("You did not provide a the path to the data I asked for! RUDE!")
-  pathtodata <- readline(prompt="Enter path to data: ")
-} 
-# else if (substr(pathtodata, nchar(pathtodata), nchar(pathtodata)) != "/" | substr(pathtodata, nchar(pathtodata), nchar(pathtodata)) != "\\") {
-#  cat("Do not forget the last slash in your path!") } else { cat("OK, let's go!") }
+if (exists("pathtodata") == F) { 
+  message("ATTENTION! You will be prompted with a window, please navigate to the directory
+          where your input files are stored. Choose any file in the directory to continue.
+          Note: the code assumes that all (raw) data is stored in ONE folder.")
+  f <- file.choose() 
+  pathtodata <- dirname(f) }
+  
+if (exists("pathtoresults") == F) { 
+  res <- readline(prompt = "Do you want to save results in the same directory? [y/n] ")
+  if (res == 'y') { 
+    pathtoresults <- file.path(pathtodata, 'Results')
+    dir.create(pathtoresults, showWarnings = FALSE)
+  } else if (res == 'n') { 
+    pathtoresults <- readline(prompt = 'Enter the full path where results should be saved: ')
+  } else {
+    message('You did not answer my question. RUDE! Let us start over, shall we')
+  }
+}
 
 #### ----------------------------- FUNCTIONS ----------------------------- ####
 
 # read in data quickly
 readquick <- function(filename, rootdir = pathtodata, exclude_col = "") { # only works for SPSS files
-  dat <- read.spss(paste(rootdir, filename, sep=""), 
+  dat <- read.spss(file.path(rootdir, filename), 
                    use.value.labels = F, to.data.frame = T)
   # Get rid of all capital letters in column names (so you don't have to worry)
   names(dat) <- tolower(names(dat))
