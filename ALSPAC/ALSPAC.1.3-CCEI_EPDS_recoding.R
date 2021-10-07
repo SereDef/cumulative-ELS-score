@@ -291,6 +291,6 @@ P_DEP_selfr <- dichotomize(
 # Merge everithing together
 parent_depr_anxiety <-cbind(M_ANX, P_ANX, M_DEP, M_DEP_selfr, P_DEP, P_DEP_selfr)
 
-saveRDS(parent_depr_anxiety, file.path(alspac_folder, "raw_parent_depr_anxiety.rds"))
+saveRDS(parent_depr_anxiety, file.path(pathtoresults, "raw_parent_depr_anxiety.rds"))
 
 

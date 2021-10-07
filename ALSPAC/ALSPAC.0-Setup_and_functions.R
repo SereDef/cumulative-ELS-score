@@ -1,14 +1,28 @@
 
-# Load the necessary libraries
-library(foreign)
-library(tidyverse)
+# Load required packages
+utilis <- c('tidyverse', 'foreign')
+lapply(utilis, require, character.only = T);
 
 # Chose the folder where the input file is stored and all results will be saved
 if (exists("alspac_file") == F) { 
+  message("ATTENTION! You will be prompted with a window, please point to the location
+          of the input file.")
   alspac_file <- file.choose() 
   alspac_folder <- dirname(alspac_file)
   # Read in the data
   alspac.table <- foreign::read.spss(alspac_file, use.value.label=TRUE, to.data.frame=TRUE) }
+
+if (exists("pathtoresults") == F) { 
+  res <- readline(prompt = "Do you want to save results in the same directory? [y/n] ")
+  if (res == 'y') { 
+    pathtoresults <- file.path(alspac_folder, 'Results')
+    dir.create(pathtoresults, showWarnings = FALSE)
+  } else if (res == 'n') { 
+    pathtoresults <- readline(prompt = 'Enter the full path where results should be saved: ')
+  } else {
+    message('You did not answer my question. RUDE! Let us start over, shall we')
+  }
+}
 
 ################################################################################
 ################################################################################

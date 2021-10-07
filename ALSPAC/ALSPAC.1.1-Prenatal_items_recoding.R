@@ -173,4 +173,4 @@ IR_prenatal$p18n	<- ifelse(alspac.table$p18 == 1, 1,
 
 prenatal_stress_raw <-cbind(LE_prenatal, CR_prenatal, PR_prenatal, IS, IR_prenatal)
 
-saveRDS(prenatal_stress_raw, file.path(alspac_folder, "raw_prenatal_stress.rds"))
+saveRDS(prenatal_stress_raw, file.path(pathtoresults, "raw_prenatal_stress.rds"))
