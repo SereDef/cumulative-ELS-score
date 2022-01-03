@@ -25,7 +25,7 @@ Some items are mirrowed in prenatal and postnatal corresponding domains, but som
 <img src="imgs/overlapR.png" height="225"/> <img src="imgs/overlapA.png" height="225"/> 
 
 ## Temporal structure of the score in the two cohorts
-<img src="imgs/pren_time.jpg" height="750"/> <img src="imgs/post_time.jpg" height="750"/> 
+<img src="imgs/pren_time.jpg" height="700"/> <img src="imgs/post_time.jpg" height="700"/> 
 
 ## Prenatal stress: raw items and prevalence
 <img src="imgs/ALSPAC-GenR_ELSscore 1.jpeg" widht="200"/>
