@@ -24,22 +24,25 @@ Some items are mirrowed in prenatal and postnatal corresponding domains, but som
 
 <img src="imgs/overlapR.png" height="225"/> <img src="imgs/overlapA.png" height="225"/> 
 
-Let's take a look at the correlation patterns underlying the score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations. 
-![alt text](imgs/matrixels.png)
-
 
 ## Prenatal stress: raw items and prevalence
-![alt text](imgs/preLE.png)
-![alt text](imgs/preCR.png)
-![alt text](imgs/prePR.png)
-![alt text](imgs/preIR.png)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 1.jpeg)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 2.jpeg)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 3.jpeg)
 
 ## Postnatal stress: raw items and prevalence
-![alt text](imgs/postLE.png)
-![alt text](imgs/postCR.png)
-![alt text](imgs/postPR.png)
-![alt text](imgs/postIR.png)
-![alt text](imgs/postDV.png)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 4.jpeg)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 5.jpeg)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 6.jpeg)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 7.jpeg)
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 8.jpeg)
+
+![alt text](imgs/ALSPAC-GenR_ELSscore\ 9.jpeg)
+
+Let's take a look at the correlation patterns underlying the score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations referring to the
+items in the Generation R pool.
+![alt text](imgs/matrixels_R.png)
+
 
 ## Prediction of negative health outcomes, what do we know so far
 Similar versions of the score have been succesfully used to predict later mismatch between cognitive abilities (i.e. IQ) and accademic achievement (Schuurmans, in preparation), internalizing problems and cardio-metablic health in 10 years old children. 
