@@ -622,6 +622,7 @@ IR_8M <- dichotomize(
            "f246",  # Partner physically cruel to children
            "f256",  # Partner emotionally cruel to Mum
            "f257",  # Partner emotionally cruel to children
+           "f258",  # Mum emotionally cruel to children
            "f247"), # Mum physically cruel to children
   yes = c("Y much affected","Y MOD affected","Y mildly affected","Y but N effect"),
   no = c("N did not happen") )

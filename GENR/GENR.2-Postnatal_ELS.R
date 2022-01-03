@@ -107,7 +107,7 @@ GR1065 <- data.frame('IDC' = GR1065v1$idc,
             'friend_moved' = GR1065v1$g0200365, # Did one of your child’s friends move to a new house? Yes
         'fire_or_burglary' = GR1065v1$g0201165, # Was there a fire or burglary? Yes 
                'fidi_3yrs' = GR1065v1$g0200765, # financial problems (with le10)
-               'empl_3yrs' = GR1065v1$g0202365, # unemployment (with GR075 and GR1081)
+               'empl_3yrs' = GR1065v1$g0202365, # unemployment in thew last 2 years (with GR075 and GR1081)
          'tension_at_work' = GR1065v1$g0200565, # Tension at the parents’ work that has been felt at home; yes
         'marital_problems' = GR1065v1$g0201965) # Problems with marriage relations; yes
 
