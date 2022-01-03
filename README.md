@@ -25,21 +25,21 @@ Some items are mirrowed in prenatal and postnatal corresponding domains, but som
 <img src="imgs/overlapR.png" height="225"/> <img src="imgs/overlapA.png" height="225"/> 
 
 ## Temporal structure of the score in the two cohorts
-<img src="imgs/pre_time.jpg" height="425"/> <img src="imgs/post_time.jpg" height="425"/> 
+<img src="imgs/pren_time.jpg" height="750"/> <img src="imgs/post_time.jpg" height="750"/> 
 
 ## Prenatal stress: raw items and prevalence
-<img src="imgs/ALSPAC-GenR_ELSscore 1.jpeg" widht="250"/>
-<img src="imgs/ALSPAC-GenR_ELSscore 2.jpeg" widht="250"/>
-<img src="imgs/ALSPAC-GenR_ELSscore 3.jpeg" widht="250"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 1.jpeg" widht="200"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 2.jpeg" widht="200"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 3.jpeg" widht="200"/>
 
 ## Postnatal stress: raw items and prevalence
-<img src="imgs/ALSPAC-GenR_ELSscore 4.jpeg" widht="250"/>
-<img src="imgs/ALSPAC-GenR_ELSscore 5.jpeg" widht="250"/>
-<img src="imgs/ALSPAC-GenR_ELSscore 6.jpeg" widht="250"/>
-<img src="imgs/ALSPAC-GenR_ELSscore 7.jpeg" widht="250"/>
-<img src="imgs/ALSPAC-GenR_ELSscore 8.jpeg" widht="250"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 4.jpeg" widht="200"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 5.jpeg" widht="200"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 6.jpeg" widht="200"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 7.jpeg" widht="200"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 8.jpeg" widht="200"/>
 
-<img src="imgs/ALSPAC-GenR_ELSscore 9.jpeg" widht="250"/>
+<img src="imgs/ALSPAC-GenR_ELSscore 9.jpeg" widht="200"/>
 
 Let's take a look at the correlation patterns underlying the score. The black and blue lines can help you orient between the dirrent domains and periods. Those depicted here are Spearman correations referring to the
 items in the Generation R pool.
