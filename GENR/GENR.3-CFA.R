@@ -12,7 +12,13 @@ extras <- c('lavaan', 'psych', 'tibble')
 lapply(extras, require, character.only = T);
 
 # check if the path to the data is already in memory, otherwise ask for it. 
-if (exists("pathtoresults") == F) { pathtoresults = readline(prompt="Enter path to results: ") }
+# if (exists("pathtoresults") == F) { pathtoresults = readline(prompt="Enter path to results: ") }
+# Load dataset (created using the Prenatal_ELS.R script)
+pre_risk <- readRDS(file.choose())
+post_risk <- readRDS(file.choose())
+# Load the imputed dataset
+datarisk <- readRDS(file.choose())
+
 
 # ------------------------------------------------------------------------------
 
@@ -23,9 +29,6 @@ if (exists("pathtoresults") == F) { pathtoresults = readline(prompt="Enter path 
 # -----------------------------------------------------------------------------#
 #---------------------------- PRENATAL ELS SCORE  -----------------------------#
 # -----------------------------------------------------------------------------#
-
-# Load dataset (created using the Prenatal_ELS.R script)
-pre_risk <- readRDS(paste(pathtoresults, 'prenatal_stress.rds', sep=""))
 
 # ------------------------------------------------------------------------------
 # specify the models
@@ -46,7 +49,7 @@ prenatal_CR.model <- '
 contextual_risk =~ NA*financial_problems + trouble_pay_pregnancy + income_reduced + housing_defects + housing_adequacy + housing_basic_living + m_education_pregnancy + p_education_pregnancy '
 
 prenatal_PR.model <- ' 
-parental_risk =~ NA*early_pregnancy + m_depression_pregnancy + m_anxiety_pregnancy + m_interp_sensitivity_pregnancy + p_depression_pregnancy + p_anxiety_pregnancy + p_interp_sensitivity_pregnancy + m_violence_people + m_violence_property + m_criminal_record + p_criminal_record'
+parental_risk =~ NA*m_age + m_depression_pregnancy + m_anxiety_pregnancy + m_interp_sensitivity_pregnancy + p_depression_pregnancy + p_anxiety_pregnancy + p_interp_sensitivity_pregnancy + m_violence_people + m_violence_property + m_criminal_record + p_criminal_record'
 
 prenatal_IR.model <- ' 
 interpersonal_risk =~ NA*difficulties_contacts + difficulties_partner + difficulties_family_friend + marital_status_pregnancy + divorce_pregnancy + family_support + family_acceptance + family_affection + family_acception + family_trust + family_painful_feelings + family_decisions + family_conflict + family_decisions_problems + family_plans + family_talk_sadness + family_talk_worries + family_size_pregnancy '
@@ -60,10 +63,10 @@ interpersonal_risk =~ NA*difficulties_contacts + difficulties_partner + difficul
 # { verbose = T, to see whether anything is computed and if not, where it gets stuck
 # { ordered = ... }
 
-pre_LE_fit <- cfa(prenatal_LE.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE) 
-pre_CR_fit <- cfa(prenatal_CR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
-pre_PR_fit <- cfa(prenatal_PR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
-pre_IR_fit <- cfa(prenatal_IR.model, data=pre_risk, estimator = 'DWLS', std.lv = TRUE)
+pre_LE_fit <- lavaan::cfa(prenatal_LE.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE) 
+pre_CR_fit <- lavaan::cfa(prenatal_CR.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
+pre_PR_fit <- lavaan::cfa(prenatal_PR.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
+pre_IR_fit <- lavaan::cfa(prenatal_IR.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
 
 # ------------------------------------------------------------------------------
 # display summary output
@@ -76,9 +79,6 @@ summary(pre_IR_fit, fit.measures=TRUE, standardized=TRUE)
 # -----------------------------------------------------------------------------#
 #--------------------------- POSTNATAL ELS SCORE  -----------------------------#
 # -----------------------------------------------------------------------------#
-
-# Load dataset (created using the Postnatal_ELS.R script)
-post_risk <- readRDS(paste(pathtoresults, 'postnatal_stress.rds', sep = ""))
 
 # ------------------------------------------------------------------------------
 # specify the models
@@ -109,11 +109,11 @@ direct_victimization =~ NA*m_harsh_parent + p_harsh_parent + bullying + physical
 # fit the models
 # post_fit <- cfa(postnatal.model, data=post_risk)
 
-post_LE_fit <- cfa(postnatal_LE.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
-post_CR_fit <- cfa(postnatal_CR.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
-post_PR_fit <- cfa(postnatal_PR.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
-post_IR_fit <- cfa(postnatal_IR.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
-post_DV_fit <- cfa(postnatal_DV.model, data=post_risk, estimator = 'DWLS', std.lv = TRUE)
+post_LE_fit <- cfa(postnatal_LE.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
+post_CR_fit <- cfa(postnatal_CR.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
+post_PR_fit <- cfa(postnatal_PR.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
+post_IR_fit <- cfa(postnatal_IR.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
+post_DV_fit <- cfa(postnatal_DV.model, data=datarisk, estimator = 'DWLS', std.lv = TRUE)
 
 # ------------------------------------------------------------------------------
 # display summary output
@@ -133,20 +133,17 @@ summary(post_DV_fit, fit.measures=TRUE, standardized=TRUE)
 
 # Quick Exploratory Factor Analysis ### AFTER IMPUTATION ###
 
-# Load the imputed dataset
-datarisk <- readRDS(paste(pathtoresults, 'ELSPCM_imputed.rds', sep = ""))
-
 # Divide the dataset into prenatal and postnatal items
 pre = datarisk[2:which(colnames(datarisk) == 'family_size_pregnancy')] # first column is IDC
-pre = add_column(pre, datarisk$m_age, .before = 'm_psychopathology'); # add the maternal age variable to the prenatal set 
+pre = add_column(pre, datarisk$m_age, .after = 'p_criminal_record'); # add the maternal age variable to the prenatal set 
 
 post = datarisk[which(colnames(datarisk) == 'sick_or_accident'):which(colnames(datarisk) == 'rumors_or_gossip')];
 
-prefact = factanal(pre, factors = 4, rotation = 'promax')
-print(prefact, cutoff = .25)
+prefact = stats::factanal(pre, factors = 4, rotation = 'promax')
+print(prefact, cutoff = .2)
 
 postfact = factanal(post, factors = 5, rotation = 'promax')
-print(postfact, cutoff = .25)
+print(postfact, cutoff = .2)
 
 psych::scree(pre)
 psych::scree(post)
