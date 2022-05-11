@@ -105,6 +105,7 @@ Of note is the high correlation between pre- and postnatal total scores (r = 0.5
 The partitions of individual stressors into the proposed domain structure received some support from the Confirmatory Factor Analyses implemented in the Generation R sample (see [Table 2]()). 
 
 > <ins>Table 2</ins>: **CFA results.**
+
 |                      | _Domain_    | _RMSEA_ | _SRMR_ | _CFI_ |
 | -------------------- | ----------- | ------- | ------ | ----- |
 | _Prenatal_           | Life events | 0.03    | 0.04   | 0.71  |
