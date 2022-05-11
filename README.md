@@ -10,16 +10,13 @@ Prenatal and postnatal stressors included in the scores were categorized into fi
 * ***Parental risk*** (e.g., parental criminal record or parental depression), 
 * ***Interpersonal risk*** (e.g., family conflicts or loss of a friend),
 * ***Direct victimization*** (only available postnatally, e.g., bullying or maltreatment). 
-Please have a look at [Figure 1]() for an overview of all the items included in each stress domain and [Figure 2]() for an illustration of the temporal structure of the score, i.e., when were the items measured and what is the period of time they refer to. 
+Please have a look at [Figure 1](imgs/Figure1.png) for an overview of all the items included in each stress domain and [Figure 2](imgs/Figure2.png) for an illustration of the temporal structure of the score, i.e., when were the items measured and what is the period of time they refer to. 
 
 > <ins>Figure 1</ins>: **Score overview.** Overview of all items included in the score for Generation R (above) and ALSPAC (below). Pre- and postnatal items were assigned one of five domains, indicated by the coloured boxes: Life events in yellow, contextual risk in red, parental risk in blue, interpersonal risk in green and direct victimization in purple.
-
-![alt text](imgs/overviewR.png)
-![alt text](imgs/overviewA.png)
+![alt text](imgs/Figure1.png)
 
 > <ins>Figure 2</ins>: **Temporal structure of the prenatal and postnatal ELS score.** The two graphs summarize the complex temporal structure of the prenatal (on the left) and postnatal (on the right) ELS scores. Time is depicted on the x-axis on the scale of weeks (gestation) for prenatal and years for postnatal items. For each question/item on the y-axis, a coloured dot represents the timepoint(s) at which the item was measured, and a grey shadow indicates the time period the question refers to (e.g., “since pregnancy” or “in the last year”). Red dots and labels refer to ALSPAC items and blue dots/labels refer to Generation R items. For example, in Generation R, a question about experiencing “fire or burglary” was asked once when the child was 3 and it referred to the previous 2 years, i.e. “In the past two years, did the child experience a fire or burglary?”. In ALSPAC the item “burglary or car theft” was measured six times: around 2, 3, 4, 5, 6 and 9 years. Each of these measurements refer to the preceding 12 /15 months except for the last one, wish extends to 3 years prior. Items are grouped by domains, as indicated by the background color (yellow for life events, red for contextual risk, blue for parental risk, green for interpersonal risk and purple for direct victimization). The solid black vertical line indicates the beginning of the exposure period of interest, i.e., conception (or start of pregnancy) for prenatal items and birth for postnatal items. The dashed grey lines additionally provide temporal markers, i.e., trimesters in the prenatal period and a span of 1 year in the postnatal period.
-
-<img src="imgs/pren_time.jpg" height="650"/> <img src="imgs/post_time.jpg" height="650"/> 
+![alt text](imgs/Figure2.png) 
 
 ### Score calculation
 In each cohort (i.e., Generation R and ALSPAC), ~100 stress-related items were selected and dichotomised into *no risk* (=0) or *risk* (=1). The dichotomized items were assigned one of 9 stress domains (4 prenatal and 5 postnatal domains, as depicted in [Figure 1]()) and a domain score was computed as the unweighted average of the items belonging to each domain:
@@ -128,9 +125,6 @@ This score was originally conceived and used by Cecil et al., 2014; Rijlaarsdam 
 > <ins>Table 3</ins>: List of all prenatal items included in the Generation R (marked in blue) and in ALSPAC (marked in red). The items are divided into their respective domains and ordered according to closest item similarity across cohorts. The table includes information about the variable names assigned to individual items (i.e., those used in the scripts); the original question(s) used to construct the items (when more than one question was combined this is indicated by the || sign, reads as “or”); the dichotomization applied to each item (i.e., risk or no risk); the timepoint of measurement; and prevalence of the risk in its respective sample (the percent of missing values also reported in grey between square brackets). 
 
 > <ins>Table 4</ins>: List of all postnatal items included in the Generation R (marked in blue) and in ALSPAC (marked in red). The items are divided into their respective domains and ordered according to closest item similarity across cohorts. The table includes information about the variable names assigned to individual items (i.e., those used in the scripts); the original question(s) used to construct the items (when more than one question was combined this is indicated by the || sign, reads as “or”); the dichotomization applied to each item (i.e., risk or no risk); the timepoint(s) of measurement; and prevalence of the risk factor in its respective sample (with percent of missing values in grey between square brackets). In ALSPAC, since individual timepoints are not collapsed, a range of prevalences is provided.
-
-<img src="imgs/ALSPAC-GenR_ELSscore 9.jpeg" widht="200"/>
-
 
 ### Imputation stratergy
 For details please see the sister repo: https://github.com/SereDef/association-ELS-PCM-project
