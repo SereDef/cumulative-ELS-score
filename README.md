@@ -106,17 +106,17 @@ The partitions of individual stressors into the proposed domain structure receiv
 
 > <ins>Table 2</ins>: **CFA results.**
 
-| _Domain_                         | _RMSEA_ | _SRMR_ | _CFI_ |
-| -------------------------------- | ------- | ------ | ----- |
-| _Prenatal_ Life events           | 0.03    | 0.04   | 0.71  |
-| _Prenatal_ Contextual risk       | 0.09    | 0.07   | 0.87  |
-| _Prenatal_ Parental risk         | 0.04    | 0.09   | 0.80  |
-| _Prenatal_ Interpersonal risk    | 0.03    | 0.06   | 0.93  |
-| _Postnatal_ Life events          | 0.04    | 0.04   | 0.49  |
-| _Postnatal_ Contextual risk      | 0.07    | 0.07   | 0.92  |
-| _Postnatal_ Parental risk        | 0.05    | 0.11   | 0.81  |
-| _Postnatal_ Interpersonal risk   | 0.05    | 0.07   | 0.90  |
-| _Postnatal_ Direct victimization | 0.06    | 0.08   | 0.46  |
+| _Domain_                       | _RMSEA_ | _SRMR_ | _CFI_ |
+| ------------------------------ | ------- | ------ | ----- |
+| Prenatal Life events           | 0.03    | 0.04   | 0.71  |
+| Prenatal Contextual risk       | 0.09    | 0.07   | 0.87  |
+| Prenatal Parental risk         | 0.04    | 0.09   | 0.80  |
+| Prenatal Interpersonal risk    | 0.03    | 0.06   | 0.93  |
+| Postnatal Life events          | 0.04    | 0.04   | 0.49  |
+| Postnatal Contextual risk      | 0.07    | 0.07   | 0.92  |
+| Postnatal Parental risk        | 0.05    | 0.11   | 0.81  |
+| Postnatal Interpersonal risk   | 0.05    | 0.07   | 0.90  |
+| Postnatal Direct victimization | 0.06    | 0.08   | 0.46  |
 
 ### Why a cumulative ELS score?
 Cumulative scores, similar to this one, are widely used in developmental psychology and medicine because they proved to be a parsimonious and statistically sensitive metric. They make no assumptions about the relative strengths of multiple risk factors or their collinearity, and they tend to fit well with underlying theoretical models (Evans, Li, & Whipple, 2013). 
