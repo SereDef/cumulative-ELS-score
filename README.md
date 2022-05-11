@@ -28,7 +28,7 @@ Finally, domain scores were summed within periods to obtain the prenatal and pos
 * **Prenatal stress** = `prenatal life events` + `prenatal contextual risk` + `prenatal parental risk` + `prenatal interpersonal risk`.
 * **Postnatal stress** = `postnatal life events` + `postnatal contextual risk` + `postnatal parental risk` + `postnatal interpersonal risk` + `postnatal direct victimization`.
 
-### Item selection
+## Item selection
 The score is designed to be a comprehensive measure of exposure to psycho-social stressors. We adopted a broad definition of ELS, including any event or situation with characteristics that would be considered stressful during early life (Heim, 2013). However, early stress factors that are more biological in nature (e.g. maternal smoking or alcohol consumption, pollution) were left out of the score. We preferred including these as covariates in our models, to explicitly account for their contribution.
 
 Generally, items measured in the *prenatal* period were referred to the mother, i.e., they were selected to reflect any source of psychosocial stress for the pregnant mother; whereas *postnatal* items were meant to capture psychosocial stress in the child more directly. However, for a few postnatal ALSPAC items for which more “direct” assessment of child stressors was not available, some proximal items were used. These were referred to the mother, but presumably reflect the child experience to some extent, for example, whether the child’s parent died was not reported in ALSPAC, so the item: “the mother’s partner died” was used instead. A summary of the overlap between prenatal and postnatal items in each domain and for the two samples is provided in [Table 1](imgs/Table1.png). 
@@ -42,7 +42,7 @@ After a first screening of all stress-related questions available in each cohort
 
 This process resulted in a total of 52 prenatal and 51 postnatal items in Generation R, and 45 prenatal and 50 postnatal items included in the ALSPAC score (see [Figure 1](imgs/Figure1.png) and [2](imgs/Figure2.png)). 
 
-### Dichotomization stratergies 
+## Dichotomization stratergies 
 To ensure that all different risk items would contribute equally to the score, all items were recoded into *no risk* (=0) or *risk* (=1). About half of the Generation R items and 10% of ALSPAC items were already encoded as binary (i.e., yes or no), but for the remainder of the items some arbitrary decisions about what constitutes a risk (=1) or not (=0) had to be involved. The dichotomization strategy adopted for each item is reported in [Table 3](imgs/Table3.xlsx) and [4](imgs/Table4.xlsx). In most cases, decisions were guided by questionnaire manuals, European or national guidelines or available literature. Some of the main criteria are outlined here: 
 * About 65% of all ALSPAC items had a similar 5-level structure: `“did not happen”` / `“no effect at all”` / `“mildly affected”` / `“fairly affected”` / `“affected a lot”`. These were dichotomized into *no risk* (=0) if the answer was `“did not happen”` and *risk* (=1) if any other answer was provided. This approach would ensure that the subjective evaluation of the impact of a stressor on the child (reported in most cases by mothers) would not factor into the score. The same principle was applied in Generation R, for instance, to questions about financial, housing or interpersonal problems (*no risk* = `“no problems”`, *risk* = `“slight”`, `“moderate”` or `“serious”` problems), or maternal criminal offence (*no risk* = `“never”`, *risk* = `“once”` / `“2-3 times”` / `“4-5 times”` / `“> 6 times”`).
 * In the Dutch cohort (Generation R), **low education** and **low income** were defined according to the *Centraal Bureau voor de Statistiek* (2016). Paternal and maternal education was marked as a risk when the highest educational attainment was below `“higher education – phase 1”` (i.e., *risk* = `No education` / `Primary` / `Secondary-phase 1` / `Secondary-phase 2`). Low income was marked as a risk the household income was below the “basic needs” level (i.e., 1600 €/month). 
@@ -54,7 +54,7 @@ To ensure that all different risk items would contribute equally to the score, a
 *	**Bullying** was considered a risk when any type of bullying (i.e., physical, verbal or relational) was reported by any informant (i.e., mother or teacher) at least once a week, based on (Muetzel et al., 2019).
 * When no other cut-off was available, an 80th percentile cut-off was used in the dichotomization of maternal and paternal **interpersonal sensitivity**, and **neighborhood problems** in ALSPAC and that of maternal and paternal **harsh parenting** in Generation R, as suggested by (Jansen et al., 2012).
 
-### Repeated measures
+## Repeated measures
 As evident from the right pane in [Figure 2](imgs/Figure2.png) (listing postnatal exposures), the two cohorts show different profiles in terms of availability of repeated measurements. In Generation R, none of the prenatal and 16 of the 51 postnatal items were measured more than once:
 *	Education of the mother and of partner were both measured twice (at ~3 and ~6 years);
 *	Financial difficulties, trouble paying bills and psychopathology of the mother and partner (i.e., depression, anxiety and interpersonal sensitivity) were measured twice (at ~3 and ~9½ years);
@@ -79,7 +79,7 @@ i.e., **domain score = risk<sub>11</sub> + risk<sub>12</sub> + … + risk<sub>1t
 where N is the number of stressors in the score and tn is the total number of timepoints available for each stressor. 
 As a result, while in Generation R higher postnatal stress scores reflect mainly the co-occurrence of multiple types of stressors, ALSPAC postnatal scores also reflect the chronicity of stress exposure.
 
-### Domain scores distribution and correlational structure
+## Domain scores distribution and correlational structure
 The univariate distributions of each of the nine domains are illustrated in [Figure 3](imgs/Figure3.png). 
 
 > <ins>Figure 3</ins>: **Distribution of domain scores in the two cohorts.** 
@@ -88,11 +88,11 @@ The four graphs illustrate the univariate distribution of the prenatal and postn
 
 From the graphs one can appreciate a positive skewness across nearly all domains, that is expected given the population-based samples these distributions are constructed on, i.e., a large proportion of the sample will have low cumulative stress scores. This skewness seems less pronounced in the ALSPAC sample, which could indicate higher rates of cumulative stress. For the prevalence of each individual stressor in the score, see [Table 3](imgs/Table3.xlsx) and [4](imgs/Table4.xlsx). 
 
-The Pearson correlation matrix relating all domain scores as well as prenatal and postnatal total stress scores is shown in [Figure 4](imgs/Figure4.png). 
+The Pearson correlation matrix relating all domain scores as well as prenatal and postnatal total stress scores is shown in [Figure 4](imgs/Figure4.jpg). 
 
 > <ins>Figure 4</ins>: **Stress score correlation matrix.**
 The Pearson correlation matrix relating all prenatal and postnatal domain scores as well as pre- and postnatal total stress scores. In the lower left corner, indicated by the color blue are the correlations referred the Generation R sample while in the upper right corner, in red are the ALSPAC correlations. The black grid divides the matric in 3 sections: prenatal domains, postnatal domains and total scores. 
-![alt text](imgs/Figure4.png) 
+![alt text](imgs/Figure4.jpg) 
 
 Of note is the high correlation between pre- and postnatal total scores (r = 0.56 in Generation R and 0.48 in ALSPAC), and the Generation R-specific continuity that emerges between prenatal and postnatal contextual risk (r = 0.65). In ALSPAC contextual risk and parental risk also show some continuity across prenatal and postnatal periods (r = 0.40 and 0.43 respectively).
 
@@ -112,7 +112,7 @@ The partitions of individual stressors into the proposed domain structure receiv
 | Postnatal Interpersonal risk   | 0.05    | 0.07   | 0.90  |
 | Postnatal Direct victimization | 0.06    | 0.08   | 0.46  |
 
-### Why a cumulative ELS score?
+## Why a cumulative ELS score?
 Cumulative scores, similar to this one, are widely used in developmental psychology and medicine because they proved to be a parsimonious and statistically sensitive metric. They make no assumptions about the relative strengths of multiple risk factors or their collinearity, and they tend to fit well with underlying theoretical models (Evans, Li, & Whipple, 2013). 
 ### Limitations
 Additive indexes such as this one also come with a number of shortcomings. Importantly, risk was inevitably designated with some degree of arbitrariness, and dichotomization into risk or no risk was not always a straightforward decision. Because we are aware of how problematic this may be for replicability, we tried to list as meticulously as possible the decisions that were taken and the rationale behind each one of them. Note also that information on risk intensity is lost, together with the effect of specific stressors, that of temporal trajectories and the possibility of statistical interactions between stressors. Furthermore, the inclusion of stressors in the score was inevitably limited by the availability of data, and, despite our best efforts to be as comprehensive as possible, it may still leave out important factors. Finally, the information included in the score relies predominately on mother reports, and although other information sources (e.g., partner or teacher reports) were included, when possible, reporter bias is still one of the key issues of this measurement. 
@@ -127,5 +127,5 @@ This score was originally conceived and used by Cecil et al., 2014; Rijlaarsdam 
 
 [See Table 4](imgs/Table4.xlsx).
 
-### Imputation stratergy
+## Imputation stratergy
 For details please see the sister repo: https://github.com/SereDef/association-ELS-PCM-project
