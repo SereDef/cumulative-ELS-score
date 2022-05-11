@@ -125,8 +125,8 @@ For details please see the sister repo: https://github.com/SereDef/association-E
 
 | Variable name | Item(s) PRENATAL **LIFE EVENTS**      | \= risk \[ 1 \] | no risk \[ 0 \] | Timepoint (gestation) | % at risk \[ % NA \]|
 | ------------- | ------------------------------------- | --------------- | --------------- | --------------------- | ------------------- |
-| **family\_member\_died**      | One of your children **||** Your partner died in the last 12 months?| Yes        | No             | 20–25 w | 0.4%  \[ 32% \] |
-| **family\_member\_died\_pre** | Partner died since PREG **||** CH died since PREG                   | Happened\* | Didn’t happen  | 18 w    | 0.2% \[ 23% \]  |
+| **family\_member\_died**<br /> **family\_member\_died\_pre** | One of your children **||** Your partner died in the last 12 months?| Yes        | No             | 20–25 w | 0.4%  \[ 32% \] |
+| | Partner died since PREG **||** CH died since PREG                   | Happened\* | Didn’t happen  | 18 w    | 0.2% \[ 23% \]  |
 | ------------- | ------------------------------------- | --------------- | --------------- | --------------------- | ------------------- |
 | **friend\_relative\_died**
 
