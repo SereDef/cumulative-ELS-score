@@ -10,6 +10,7 @@ Prenatal and postnatal stressors included in the scores were categorized into fi
 * `Parental risk`(e.g., parental criminal record or parental depression), 
 * `Interpersonal risk` (e.g., family conflicts or loss of a friend),
 * `Direct victimization` (only available postnatally, e.g., bullying or maltreatment). 
+
 Please have a look at [Figure 1](imgs/Figure1.png) for an overview of all the items included in each stress domain and [Figure 2](imgs/Figure2.png) for an illustration of the temporal structure of the score, i.e., when were the items measured and what is the period of time they refer to. 
 
 > <ins>Figure 1</ins>: **Score overview.** Overview of all items included in the score for Generation R (above) and ALSPAC (below). Pre- and postnatal items were assigned one of five domains, indicated by the coloured boxes: Life events in yellow, contextual risk in red, parental risk in blue, interpersonal risk in green and direct victimization in purple.
@@ -37,12 +38,12 @@ Generally, items measured in the *prenatal* period were referred to the mother, 
 
 When *multiformat* reports were available (i.e., reports from both parents, or mother and teacher) both sources of information were included, with the aim of reducing the impact of reporter bias as much as possible.
 
-After a first screening of all stress-related questions available in each cohort, we collapsed highly similar/correlated questions to minimize multicollinearity and, at the same time, maximize comparability across cohorts. For example, in the ALSPAC score, the stressor “violence in family” was considered present if the answer was yes to either of these three questions: “Partner was physically cruel to Mum”, “Mum/Partner hit or slapped one another” and “Mum/Partner threw something in anger”. A complete report of the original questions and their combination into stress items is provided in [Table 3](imgs/Table3.xlxs) and [4](imgs/Table4.xlxs). 
+After a first screening of all stress-related questions available in each cohort, we collapsed highly similar/correlated questions to minimize multicollinearity and, at the same time, maximize comparability across cohorts. For example, in the ALSPAC score, the stressor “violence in family” was considered present if the answer was yes to either of these three questions: “Partner was physically cruel to Mum”, “Mum/Partner hit or slapped one another” and “Mum/Partner threw something in anger”. A complete report of the original questions and their combination into stress items is provided in [Table 3](imgs/Table3.xlsx) and [4](imgs/Table4.xlsx). 
 
 This process resulted in a total of 52 prenatal and 51 postnatal items in Generation R, and 45 prenatal and 50 postnatal items included in the ALSPAC score (see [Figure 1](imgs/Figure1.png) and [2](imgs/Figure2.png)). 
 
 ### Dichotomization stratergies 
-To ensure that all different risk items would contribute equally to the score, all items were recoded into *no risk* (=0) or *risk* (=1). About half of the Generation R items and 10% of ALSPAC items were already encoded as binary (i.e., yes or no), but for the remainder of the items some arbitrary decisions about what constitutes a risk (=1) or not (=0) had to be involved. The dichotomization strategy adopted for each item is reported in [Table 3](imgs/Table3.xlxs) and [4](imgs/Table4.xlxs). In most cases, decisions were guided by questionnaire manuals, European or national guidelines or available literature. Some of the main criteria are outlined here: 
+To ensure that all different risk items would contribute equally to the score, all items were recoded into *no risk* (=0) or *risk* (=1). About half of the Generation R items and 10% of ALSPAC items were already encoded as binary (i.e., yes or no), but for the remainder of the items some arbitrary decisions about what constitutes a risk (=1) or not (=0) had to be involved. The dichotomization strategy adopted for each item is reported in [Table 3](imgs/Table3.xlsx) and [4](imgs/Table4.xlsx). In most cases, decisions were guided by questionnaire manuals, European or national guidelines or available literature. Some of the main criteria are outlined here: 
 * About 65% of all ALSPAC items had a similar 5-level structure: `“did not happen”` / `“no effect at all”` / `“mildly affected”` / `“fairly affected”` / `“affected a lot”`. These were dichotomized into *no risk* (=0) if the answer was `“did not happen”` and *risk* (=1) if any other answer was provided. This approach would ensure that the subjective evaluation of the impact of a stressor on the child (reported in most cases by mothers) would not factor into the score. The same principle was applied in Generation R, for instance, to questions about financial, housing or interpersonal problems (*no risk* = `“no problems”`, *risk* = `“slight”`, `“moderate”` or `“serious”` problems), or maternal criminal offence (*no risk* = `“never”`, *risk* = `“once”` / `“2-3 times”` / `“4-5 times”` / `“> 6 times”`).
 * In the Dutch cohort (Generation R), **low education** and **low income** were defined according to the *Centraal Bureau voor de Statistiek* (2016). Paternal and maternal education was marked as a risk when the highest educational attainment was below `“higher education – phase 1”` (i.e., *risk* = `No education` / `Primary` / `Secondary-phase 1` / `Secondary-phase 2`). Low income was marked as a risk the household income was below the “basic needs” level (i.e., 1600 €/month). 
 *	The **material deprivation** criterium was based on a possession rate < 75%, according to European statistics on income and living conditions (EU-SILC, 2007).
@@ -85,20 +86,20 @@ The univariate distributions of each of the nine domains are illustrated in [Fig
 The four graphs illustrate the univariate distribution of the prenatal and postnatal domain scores in the Generation R (A, B) and the ALSPAC (C, D) samples. Color indicates the domain (yellow for life events, red for contextual risk, blue for parental risk, green for interpersonal risk and purple for direct victimization).
 ![alt text](imgs/Figure3.png) 
 
-From the graphs one can appreciate a positive skewness across nearly all domains, that is expected given the population-based samples these distributions are constructed on, i.e., a large proportion of the sample will have low cumulative stress scores. This skewness seems less pronounced in the ALSPAC sample, which could indicate higher rates of cumulative stress. For the prevalence of each individual stressor in the score, see [Table 3](imgs/Table3.xlxs) and [4](imgs/Table4.xlxs). 
+From the graphs one can appreciate a positive skewness across nearly all domains, that is expected given the population-based samples these distributions are constructed on, i.e., a large proportion of the sample will have low cumulative stress scores. This skewness seems less pronounced in the ALSPAC sample, which could indicate higher rates of cumulative stress. For the prevalence of each individual stressor in the score, see [Table 3](imgs/Table3.xlsx) and [4](imgs/Table4.xlsx). 
 
 The Pearson correlation matrix relating all domain scores as well as prenatal and postnatal total stress scores is shown in [Figure 4](imgs/Figure4.png). 
 
-> <ins>Figure 3</ins>: **Stress score correlation matrix.**
+> <ins>Figure 4</ins>: **Stress score correlation matrix.**
 The Pearson correlation matrix relating all prenatal and postnatal domain scores as well as pre- and postnatal total stress scores. In the lower left corner, indicated by the color blue are the correlations referred the Generation R sample while in the upper right corner, in red are the ALSPAC correlations. The black grid divides the matric in 3 sections: prenatal domains, postnatal domains and total scores. 
-![alt text](imgs/Figure3.png) 
+![alt text](imgs/Figure4.png) 
 
 Of note is the high correlation between pre- and postnatal total scores (r = 0.56 in Generation R and 0.48 in ALSPAC), and the Generation R-specific continuity that emerges between prenatal and postnatal contextual risk (r = 0.65). In ALSPAC contextual risk and parental risk also show some continuity across prenatal and postnatal periods (r = 0.40 and 0.43 respectively).
-
 
 The partitions of individual stressors into the proposed domain structure received some support from the Confirmatory Factor Analyses implemented in the Generation R sample (see [Table 2]()). 
 
 > <ins>Table 2</ins>: **CFA results.**
+
 | _Domain_                       | _RMSEA_ | _SRMR_ | _CFI_ |
 | ------------------------------ | ------- | ------ | ----- |
 | Prenatal Life events           | 0.03    | 0.04   | 0.71  |
@@ -120,11 +121,11 @@ This score was originally conceived and used by Cecil et al., 2014; Rijlaarsdam 
 
 > <ins>Table 3</ins>: List of all prenatal items included in the Generation R (marked in blue) and in ALSPAC (marked in red). The items are divided into their respective domains and ordered according to closest item similarity across cohorts. The table includes information about the variable names assigned to individual items (i.e., those used in the scripts); the original question(s) used to construct the items (when more than one question was combined this is indicated by the || sign, reads as “or”); the dichotomization applied to each item (i.e., risk or no risk); the timepoint of measurement; and prevalence of the risk in its respective sample (the percent of missing values also reported in grey between square brackets). 
 
-[See Table 3](imgs/Table3.xlxs).
+[See Table 3](imgs/Table3.xlsx).
 
 > <ins>Table 4</ins>: List of all postnatal items included in the Generation R (marked in blue) and in ALSPAC (marked in red). The items are divided into their respective domains and ordered according to closest item similarity across cohorts. The table includes information about the variable names assigned to individual items (i.e., those used in the scripts); the original question(s) used to construct the items (when more than one question was combined this is indicated by the || sign, reads as “or”); the dichotomization applied to each item (i.e., risk or no risk); the timepoint(s) of measurement; and prevalence of the risk factor in its respective sample (with percent of missing values in grey between square brackets). In ALSPAC, since individual timepoints are not collapsed, a range of prevalences is provided.
 
-[See Table 4](imgs/Table4.xlxs).
+[See Table 4](imgs/Table4.xlsx).
 
 ### Imputation stratergy
 For details please see the sister repo: https://github.com/SereDef/association-ELS-PCM-project
